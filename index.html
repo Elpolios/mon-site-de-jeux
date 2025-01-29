@@ -3,29 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon site de jeux</title>
+    <title>Jeu du Jour</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Bienvenue sur mon site de jeux quotidiens !</h1>
-    </header>
-
-    <main>
-        <section>
-            <h2>Jeu du jour</h2>
-            <div id="game-container">
-                <p id="question"></p>
-                <input type="number" id="answer" placeholder="Réponds ici">
-                <button id="submit-answer">Soumettre</button>
-                <p id="result"></p>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 Mon site de jeux</p>
-    </footer>
+    <div class="game-container">
+        <h1>🎲 Jeu du Jour</h1>
+        <p id="calculation"></p>
+        
+        <input type="number" id="userAnswer" placeholder="Votre réponse" />
+        <button id="submitAnswer">Valider</button>
+        <p id="resultMessage"></p>
+        
+        <h3>⏳ Prochain jeu dans :</h3>
+        <p id="countdown"></p>
+    </div>
 
     <script src="script.js"></script>
 </body>
