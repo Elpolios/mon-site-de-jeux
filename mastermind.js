@@ -1,4 +1,4 @@
-let secretCode = generateSecretCode();
+let secretCode = '';
 let attempts = 0;
 const maxAttempts = 10;
 const historyElement = document.getElementById('history');
@@ -8,24 +8,17 @@ const proposalTiles = document.querySelectorAll('.proposal-tile');
 let currentProposal = ['', '', '', ''];
 let selectedIndex = 0;
 
-function generateSecretCode() {
-    let code = '';
-    const numbers = '0123456789';
-    while (code.length < 4) {
-        const randomIndex = Math.floor(Math.random() * numbers.length);
-        const digit = numbers[randomIndex];
-        if (!code.includes(digit)) {
-            code += digit;
-        }
+async function loadSecretCode() {
+    try {
+        const response = await fetch('http://localhost:3000/secret-code');
+        const data = await response.json();
+        secretCode = data.code;
+        console.log('Code secret chargé :', secretCode); // Vérification
+        showFeedback('Code secret chargé !');
+    } catch (error) {
+        console.error('Erreur lors de la récupération du code secret :', error);
+        showFeedback('Erreur lors de la récupération du code secret.');
     }
-    return code;
-}
-
-function updateSecretCode() {
-    secretCode = generateSecretCode();
-    attempts = 0;
-    historyElement.innerHTML = ''; // Clear history
-    showFeedback('Nouveau code secret généré !');
 }
 
 tiles.forEach((tile) => {
@@ -183,8 +176,8 @@ function closePopup() {
 }
 
 window.onload = function() {
+    loadSecretCode();
     startCountdown();
-    checkForMidnight();
 }
 
 function startCountdown() {
@@ -202,13 +195,4 @@ function startCountdown() {
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
-}
-
-function checkForMidnight() {
-    setInterval(() => {
-        const now = new Date();
-        if (now.getHours() === 0 && now.getMinutes() === 0 && now.getSeconds() === 0) {
-            updateSecretCode();
-        }
-    }, 60000); // Check every minute
 }
