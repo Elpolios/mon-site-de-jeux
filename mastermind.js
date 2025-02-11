@@ -21,6 +21,13 @@ function generateSecretCode() {
     return code;
 }
 
+function updateSecretCode() {
+    secretCode = generateSecretCode();
+    attempts = 0;
+    historyElement.innerHTML = ''; // Clear history
+    showFeedback('Nouveau code secret généré !');
+}
+
 tiles.forEach((tile) => {
     tile.addEventListener('click', () => {
         const digit = tile.textContent;
@@ -58,6 +65,30 @@ function updateTileLockStatus() {
     });
 }
 
+function clearSelected() {
+    if (currentProposal[selectedIndex] !== '') {
+        const digit = currentProposal[selectedIndex];
+        currentProposal[selectedIndex] = '';
+        proposalTiles[selectedIndex].textContent = '';
+        const tile = document.getElementById(`tile-${digit}`);
+        if (tile) {
+            tile.classList.remove('disabled');
+        }
+    }
+}
+
+function clearAll() {
+    currentProposal = ['', '', '', ''];
+    proposalTiles.forEach(tile => {
+        tile.textContent = '';
+    });
+    tiles.forEach(tile => {
+        tile.classList.remove('disabled');
+    });
+    selectedIndex = 0;
+    updateProposalTileSelection();
+}
+
 function makeGuess() {
     if (currentProposal.includes('')) {
         showFeedback('Veuillez compléter votre proposition.');
@@ -72,11 +103,13 @@ function makeGuess() {
 
     if (guess === secretCode) {
         showFeedback('Félicitations ! Vous avez trouvé la combinaison secrète !');
+        resetTiles();
     } else if (attempts >= maxAttempts) {
         showFeedback(`Désolé, vous avez épuisé vos tentatives. La combinaison secrète était ${secretCode}.`);
+        resetTiles();
+    } else {
+        resetTiles();
     }
-
-    resetTiles();
 }
 
 function checkGuess(guess) {
@@ -141,13 +174,17 @@ function resetTiles() {
     updateProposalTileSelection();
 }
 
-window.onload = function() {
+function openRulesPopup() {
     document.getElementById('rules-popup').style.display = 'flex';
-    startCountdown();
 }
 
 function closePopup() {
     document.getElementById('rules-popup').style.display = 'none';
+}
+
+window.onload = function() {
+    startCountdown();
+    checkForMidnight();
 }
 
 function startCountdown() {
@@ -165,4 +202,13 @@ function startCountdown() {
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
+}
+
+function checkForMidnight() {
+    setInterval(() => {
+        const now = new Date();
+        if (now.getHours() === 0 && now.getMinutes() === 0 && now.getSeconds() === 0) {
+            updateSecretCode();
+        }
+    }, 60000); // Check every minute
 }
