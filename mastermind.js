@@ -3,6 +3,10 @@ let attempts = 0;
 const maxAttempts = 10;
 const historyElement = document.getElementById('history');
 const countdownElement = document.getElementById('countdown');
+const tiles = document.querySelectorAll('.tile');
+const proposalTiles = document.querySelectorAll('.proposal-tile');
+let currentProposal = ['', '', '', ''];
+let selectedIndex = 0;
 
 function generateSecretCode() {
     let code = '';
@@ -17,19 +21,51 @@ function generateSecretCode() {
     return code;
 }
 
-function makeGuess() {
-    const guess1 = document.getElementById('guess1').value;
-    const guess2 = document.getElementById('guess2').value;
-    const guess3 = document.getElementById('guess3').value;
-    const guess4 = document.getElementById('guess4').value;
-    const guess = guess1 + guess2 + guess3 + guess4;
+tiles.forEach((tile) => {
+    tile.addEventListener('click', () => {
+        const digit = tile.textContent;
+        if (!currentProposal.includes(digit)) {
+            currentProposal[selectedIndex] = digit;
+            proposalTiles[selectedIndex].textContent = digit;
+            selectedIndex = (selectedIndex + 1) % 4;
+            updateTileLockStatus();
+            updateProposalTileSelection();
+        }
+    });
+});
 
-    if (guess.length !== 4 || new Set(guess).size !== 4) {
-        showFeedback('Veuillez entrer une combinaison de 4 chiffres uniques.');
+proposalTiles.forEach((tile, index) => {
+    tile.addEventListener('click', () => {
+        selectedIndex = index;
+        updateProposalTileSelection();
+    });
+});
+
+function updateProposalTileSelection() {
+    proposalTiles.forEach((tile, index) => {
+        tile.classList.toggle('selected', index === selectedIndex);
+    });
+}
+
+function updateTileLockStatus() {
+    tiles.forEach(tile => {
+        const digit = tile.textContent;
+        if (currentProposal.includes(digit)) {
+            tile.classList.add('disabled');
+        } else {
+            tile.classList.remove('disabled');
+        }
+    });
+}
+
+function makeGuess() {
+    if (currentProposal.includes('')) {
+        showFeedback('Veuillez compléter votre proposition.');
         return;
     }
 
     attempts++;
+    const guess = currentProposal.join('');
     const result = checkGuess(guess);
     showFeedback(`Tentative ${attempts}: ${result}`);
     addToHistory(guess, result);
@@ -39,6 +75,8 @@ function makeGuess() {
     } else if (attempts >= maxAttempts) {
         showFeedback(`Désolé, vous avez épuisé vos tentatives. La combinaison secrète était ${secretCode}.`);
     }
+
+    resetTiles();
 }
 
 function checkGuess(guess) {
@@ -76,15 +114,13 @@ function addToHistory(guess, result) {
     const historyItem = document.createElement('div');
     historyItem.classList.add('history-item');
 
-    // Ajouter uniquement les chiffres de la tentative dans des cases
     guess.split('').forEach(digit => {
         const span = document.createElement('span');
         span.innerText = digit;
-        span.classList.add('history-digit'); // Ajout d'une classe pour styliser les chiffres
+        span.classList.add('history-digit');
         historyItem.appendChild(span);
     });
 
-    // Ajouter les indications à côté en texte
     const resultSpan = document.createElement('span');
     resultSpan.classList.add('result');
     resultSpan.innerText = result;
@@ -93,20 +129,27 @@ function addToHistory(guess, result) {
     historyElement.appendChild(historyItem);
 }
 
+function resetTiles() {
+    tiles.forEach(tile => {
+        tile.classList.remove('disabled');
+    });
+    proposalTiles.forEach(tile => {
+        tile.textContent = '';
+    });
+    currentProposal = ['', '', '', ''];
+    selectedIndex = 0;
+    updateProposalTileSelection();
+}
 
-
-// Afficher la pop-up au chargement de la page
 window.onload = function() {
     document.getElementById('rules-popup').style.display = 'flex';
     startCountdown();
 }
 
-// Fermer la pop-up
 function closePopup() {
     document.getElementById('rules-popup').style.display = 'none';
 }
 
-// Compte à rebours jusqu'à minuit
 function startCountdown() {
     function updateCountdown() {
         const now = new Date();
