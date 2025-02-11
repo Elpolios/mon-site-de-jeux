@@ -76,19 +76,24 @@ function addToHistory(guess, result) {
     const historyItem = document.createElement('div');
     historyItem.classList.add('history-item');
 
+    // Ajouter uniquement les chiffres de la tentative dans des cases
     guess.split('').forEach(digit => {
         const span = document.createElement('span');
         span.innerText = digit;
+        span.classList.add('history-digit'); // Ajout d'une classe pour styliser les chiffres
         historyItem.appendChild(span);
     });
 
+    // Ajouter les indications à côté en texte
     const resultSpan = document.createElement('span');
+    resultSpan.classList.add('result');
     resultSpan.innerText = result;
-    resultSpan.style.marginLeft = '20px';
     historyItem.appendChild(resultSpan);
 
     historyElement.appendChild(historyItem);
 }
+
+
 
 // Afficher la pop-up au chargement de la page
 window.onload = function() {
