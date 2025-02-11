@@ -3,22 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jeu du Jour</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Mastermind</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="game-container">
-        <h1>🎲 Jeu du Jour</h1>
-        <p id="calculation"></p>
-        
-        <input type="number" id="userAnswer" placeholder="Votre réponse" />
-        <button id="submitAnswer">Valider</button>
-        <p id="resultMessage"></p>
-        
-        <h3>⏳ Prochain jeu dans :</h3>
-        <p id="countdown"></p>
+    <div id="game">
+        <h1>Mastermind</h1>
+        <div>
+            <input type="number" id="guess1" min="0" max="9">
+            <input type="number" id="guess2" min="0" max="9">
+            <input type="number" id="guess3" min="0" max="9">
+            <input type="number" id="guess4" min="0" max="9">
+        </div>
+        <button onclick="makeGuess()">Deviner</button>
+        <div id="feedback"></div>
+        <div id="history"></div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Pop-up pour les règles -->
+    <div id="rules-popup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h2>Règles du Mastermind</h2>
+            <p>Devinez la combinaison secrète de 4 chiffres allant de 0 à 9.</p>
+            <p>Les règles sont les suivantes :</p>
+            <ul>
+                <li>Pas de doublons : chaque chiffre est unique.</li>
+                <li>Vous avez 10 tentatives pour deviner la combinaison.</li>
+                <li>Après chaque tentative, vous recevrez des indices :
+                    <ul>
+                        <li>Bien placé : chiffre correct à la bonne position.</li>
+                        <li>Mal placé : chiffre correct mais à la mauvaise position.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="mastermind.js"></script>
 </body>
 </html>
