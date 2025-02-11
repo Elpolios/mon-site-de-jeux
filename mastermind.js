@@ -2,6 +2,7 @@ let secretCode = generateSecretCode();
 let attempts = 0;
 const maxAttempts = 10;
 const historyElement = document.getElementById('history');
+const countdownElement = document.getElementById('countdown');
 
 function generateSecretCode() {
     let code = '';
@@ -74,16 +75,46 @@ function showFeedback(message) {
 function addToHistory(guess, result) {
     const historyItem = document.createElement('div');
     historyItem.classList.add('history-item');
-    historyItem.innerText = `Tentative ${attempts}: ${guess} -> ${result}`;
+
+    guess.split('').forEach(digit => {
+        const span = document.createElement('span');
+        span.innerText = digit;
+        historyItem.appendChild(span);
+    });
+
+    const resultSpan = document.createElement('span');
+    resultSpan.innerText = result;
+    resultSpan.style.marginLeft = '20px';
+    historyItem.appendChild(resultSpan);
+
     historyElement.appendChild(historyItem);
 }
 
 // Afficher la pop-up au chargement de la page
 window.onload = function() {
     document.getElementById('rules-popup').style.display = 'flex';
+    startCountdown();
 }
 
 // Fermer la pop-up
 function closePopup() {
     document.getElementById('rules-popup').style.display = 'none';
+}
+
+// Compte à rebours jusqu'à minuit
+function startCountdown() {
+    function updateCountdown() {
+        const now = new Date();
+        const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+        const diff = midnight - now;
+
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        countdownElement.innerText = `Prochain reset dans ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
 }
