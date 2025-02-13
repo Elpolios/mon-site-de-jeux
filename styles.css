@@ -228,3 +228,107 @@ button:hover {
 .close-btn:hover {
     color: #0277bd;
 }
+/* Styles pour la section d'exclusion */
+#exclude-section {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-align: center;
+}
+
+#exclude-section h3 {
+    font-size: 1.5em;
+    color: #0288d1;
+}
+
+#exclude-tile {
+    margin-top: 10px;
+    cursor: pointer;
+    border-color: red;
+    background-color: #ffebee;
+    color: red;
+}
+
+#exclude-tile.selected {
+    border-color: #0288d1;
+    background-color: #e1f5fe;
+    color: #0277bd;
+}
+
+#excluded-numbers {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#excluded-numbers .excluded-number {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8em;
+    border: 2px solid red;
+    border-radius: 8px;
+    background-color: #ffebee;
+    color: red;
+    cursor: pointer;
+}
+
+#excluded-numbers .excluded-number:hover {
+    background-color: #ffcdd2;
+}
+
+.tile.disabled {
+    background-color: #e0e0e0;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.tile.excluded {
+    background-color: #ffcdd2;
+    color: red;
+    cursor: pointer;
+}
+
+.tile.selected {
+    border-color: purple;
+    background-color: #e0f7fa;
+    color: purple;
+}
+
+
+
+
+/* Styles pour les boutons de chiffres */
+#number-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#number-buttons button {
+    width: 50px;
+    height: 50px;
+    font-size: 1.8em;
+    border: 2px solid #b3e5fc;
+    border-radius: 8px;
+    background-color: #e1f5fe;
+    color: #0277bd;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#number-buttons button:hover {
+    background-color: #b3e5fc;
+}
+
+#number-buttons button.excluded {
+    color: red;
+    border-color: red;
+    background-color: #ffebee;
+}

@@ -1,4 +1,4 @@
-let secretCode = '';
+let secretCode = generateSecretCode();
 let attempts = 0;
 const maxAttempts = 10;
 const historyElement = document.getElementById('history');
@@ -7,50 +7,72 @@ const tiles = document.querySelectorAll('.tile');
 const proposalTiles = document.querySelectorAll('.proposal-tile');
 let currentProposal = ['', '', '', ''];
 let selectedIndex = 0;
+const excludedNumbers = [];
+const excludedNumbersDiv = document.getElementById('excluded-numbers');
+const excludeTile = document.getElementById('exclude-tile');
+let isExcluding = false;
 
-async function loadSecretCode() {
-    try {
-        const response = await fetch('http://localhost:3000/secret-code');
-        const data = await response.json();
-        secretCode = data.code;
-        console.log('Code secret chargé :', secretCode); // Vérification
-        showFeedback('Code secret chargé !');
-    } catch (error) {
-        console.error('Erreur lors de la récupération du code secret :', error);
-        showFeedback('Erreur lors de la récupération du code secret.');
+function generateSecretCode() {
+    let code = '';
+    const numbers = '0123456789';
+    while (code.length < 4) {
+        const randomIndex = Math.floor(Math.random() * numbers.length);
+        const digit = numbers[randomIndex];
+        if (!code.includes(digit)) {
+            code += digit;
+        }
     }
+    return code;
+}
+
+function updateSecretCode() {
+    secretCode = generateSecretCode();
+    attempts = 0;
+    historyElement.innerHTML = ''; // Clear history
+    showFeedback('Nouveau code secret généré !');
 }
 
 tiles.forEach((tile) => {
     tile.addEventListener('click', () => {
         const digit = tile.textContent;
-        if (!currentProposal.includes(digit)) {
+        if (isExcluding) {
+            excludeNumber(digit);
+        } else if (!isExcluded(digit) && !currentProposal.includes(digit)) {
             currentProposal[selectedIndex] = digit;
             proposalTiles[selectedIndex].textContent = digit;
-            selectedIndex = (selectedIndex + 1) % 4;
+            tile.classList.add('disabled');
+            moveToNextEmptyIndex();
             updateTileLockStatus();
-            updateProposalTileSelection();
         }
     });
 });
 
 proposalTiles.forEach((tile, index) => {
     tile.addEventListener('click', () => {
-        selectedIndex = index;
-        updateProposalTileSelection();
+        if (!isExcluding) {
+            selectedIndex = index;
+            updateProposalTileSelection();
+        }
     });
+});
+
+excludeTile.addEventListener('click', () => {
+    isExcluding = !isExcluding;
+    selectedIndex = isExcluding ? 'exclude' : 0;
+    updateProposalTileSelection();
 });
 
 function updateProposalTileSelection() {
     proposalTiles.forEach((tile, index) => {
         tile.classList.toggle('selected', index === selectedIndex);
     });
+    excludeTile.classList.toggle('selected', selectedIndex === 'exclude');
 }
 
 function updateTileLockStatus() {
     tiles.forEach(tile => {
         const digit = tile.textContent;
-        if (currentProposal.includes(digit)) {
+        if (isExcluded(digit) || currentProposal.includes(digit)) {
             tile.classList.add('disabled');
         } else {
             tile.classList.remove('disabled');
@@ -59,7 +81,7 @@ function updateTileLockStatus() {
 }
 
 function clearSelected() {
-    if (currentProposal[selectedIndex] !== '') {
+    if (selectedIndex !== 'exclude' && currentProposal[selectedIndex] !== '') {
         const digit = currentProposal[selectedIndex];
         currentProposal[selectedIndex] = '';
         proposalTiles[selectedIndex].textContent = '';
@@ -67,6 +89,7 @@ function clearSelected() {
         if (tile) {
             tile.classList.remove('disabled');
         }
+        moveToNextEmptyIndex();
     }
 }
 
@@ -79,6 +102,7 @@ function clearAll() {
         tile.classList.remove('disabled');
     });
     selectedIndex = 0;
+    isExcluding = false;
     updateProposalTileSelection();
 }
 
@@ -156,14 +180,15 @@ function addToHistory(guess, result) {
 }
 
 function resetTiles() {
-    tiles.forEach(tile => {
-        tile.classList.remove('disabled');
-    });
+    currentProposal = ['', '', '', ''];
     proposalTiles.forEach(tile => {
         tile.textContent = '';
     });
-    currentProposal = ['', '', '', ''];
+    tiles.forEach(tile => {
+        tile.classList.remove('disabled');
+    });
     selectedIndex = 0;
+    isExcluding = false;
     updateProposalTileSelection();
 }
 
@@ -175,9 +200,45 @@ function closePopup() {
     document.getElementById('rules-popup').style.display = 'none';
 }
 
+function excludeNumber(digit) {
+    if (!excludedNumbers.includes(digit)) {
+        excludedNumbers.push(digit);
+        const excludedNumberElement = document.createElement('div');
+        excludedNumberElement.classList.add('excluded-number');
+        excludedNumberElement.textContent = digit;
+        excludedNumberElement.addEventListener('click', () => {
+            const index = excludedNumbers.indexOf(digit);
+            if (index !== -1) {
+                excludedNumbers.splice(index, 1);
+                excludedNumberElement.remove();
+                updateTileLockStatus();
+            }
+        });
+        excludedNumbersDiv.appendChild(excludedNumberElement);
+        updateTileLockStatus();
+		 isExcluding = false;
+        excludeTile.classList.remove("selected");
+        updateProposalTileSelection();
+    }
+}
+
+function isExcluded(digit) {
+    return excludedNumbers.includes(digit);
+}
+
+function moveToNextEmptyIndex() {
+    for (let i = 0; i < currentProposal.length; i++) {
+        if (currentProposal[i] === '') {
+            selectedIndex = i;
+            updateProposalTileSelection();
+            break;
+        }
+    }
+}
+
 window.onload = function() {
-    loadSecretCode();
     startCountdown();
+    checkForMidnight();
 }
 
 function startCountdown() {
@@ -195,4 +256,13 @@ function startCountdown() {
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
+}
+
+function checkForMidnight() {
+    setInterval(() => {
+        const now = new Date();
+        if (now.getHours() === 0 && now.getMinutes() === 0 && now.getSeconds() === 0) {
+            updateSecretCode();
+        }
+    }, 60000); // Check every minute
 }
