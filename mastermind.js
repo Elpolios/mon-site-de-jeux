@@ -120,6 +120,7 @@ function makeGuess() {
 
     if (guess === secretCode) {
         showFeedback('Félicitations ! Vous avez trouvé la combinaison secrète !');
+		showVictoryPopup();
         resetTiles();
     } else if (attempts >= maxAttempts) {
         showFeedback(`Désolé, vous avez épuisé vos tentatives. La combinaison secrète était ${secretCode}.`);
@@ -239,6 +240,7 @@ function moveToNextEmptyIndex() {
 window.onload = function() {
     startCountdown();
     checkForMidnight();
+	openRulesPopup();
 }
 
 function startCountdown() {
@@ -265,4 +267,13 @@ function checkForMidnight() {
             updateSecretCode();
         }
     }, 60000); // Check every minute
+}
+
+function showVictoryPopup() {
+    document.getElementById('victory-popup').style.display = 'flex';
+    document.getElementById('victory-message').innerText = `Vous avez trouvé la combinaison secrète en ${attempts} tentatives !`;
+}
+
+function closeVictoryPopup() {
+    document.getElementById('victory-popup').style.display = 'none';
 }
