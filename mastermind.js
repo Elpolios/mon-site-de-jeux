@@ -67,13 +67,19 @@ function selectGame(gameType) {
     if (variant) {
         maxAttempts = variant.maxAttempts;
         document.getElementById('game-title').textContent = variant.title;
+
+        // Réinitialiser complètement le jeu
         resetGame();
+        resetTiles();
+        clearAll();
+        attempts = 0;
+        historyElement.innerHTML = '';
+        showFeedback('Nouveau jeu commencé !');
     }
 }
 
 function resetGame() {
     secretCode = generateSecretCode();
-    attempts = 0;
     const codeLength = gameVariants[currentGameVariant].codeLength;
     currentProposal = new Array(codeLength).fill('');
 
@@ -83,9 +89,11 @@ function resetGame() {
         tile.style.display = index < codeLength ? 'block' : 'none';
     });
 
-    historyElement.innerHTML = '';
-    showFeedback('Nouveau code secret généré !');
-    resetTiles();
+    excludedNumbers.length = 0; // Réinitialiser les chiffres exclus
+    excludedNumbersDiv.innerHTML = ''; // Vider les chiffres exclus affichés
+    isExcluding = false;
+    excludeTile.classList.remove('selected');
+    updateProposalTileSelection();
 }
 
 function generateSecretCode() {
@@ -104,6 +112,21 @@ function generateSecretCode() {
 }
 
 function resetTiles() {
+    const codeLength = gameVariants[currentGameVariant].codeLength;
+    currentProposal = new Array(codeLength).fill('');
+    proposalTiles.forEach((tile, index) => {
+        tile.textContent = '';
+        tile.style.display = index < codeLength ? 'block' : 'none';
+    });
+    tiles.forEach(tile => {
+        tile.classList.remove('disabled');
+    });
+    selectedIndex = 0;
+    isExcluding = false;
+    updateProposalTileSelection();
+}
+
+function clearAll() {
     const codeLength = gameVariants[currentGameVariant].codeLength;
     currentProposal = new Array(codeLength).fill('');
     proposalTiles.forEach((tile, index) => {
@@ -180,21 +203,6 @@ function clearSelected() {
     }
 }
 
-function clearAll() {
-    const codeLength = gameVariants[currentGameVariant].codeLength;
-    currentProposal = new Array(codeLength).fill('');
-    proposalTiles.forEach((tile, index) => {
-        tile.textContent = '';
-        tile.style.display = index < codeLength ? 'block' : 'none';
-    });
-    tiles.forEach(tile => {
-        tile.classList.remove('disabled');
-    });
-    selectedIndex = 0;
-    isExcluding = false;
-    updateProposalTileSelection();
-}
-
 function makeGuess() {
     if (currentProposal.includes('')) {
         showFeedback('Veuillez compléter votre proposition.');
@@ -205,7 +213,6 @@ function makeGuess() {
     const guess = currentProposal.join('');
     const result = checkGuess(guess);
     showFeedback(`Tentative ${attempts}: ${result}`);
-    addToHistory(guess, result);
 
     if (guess === secretCode) {
         showFeedback('Félicitations ! Vous avez trouvé la combinaison secrète !');
@@ -220,14 +227,14 @@ function makeGuess() {
 }
 
 function checkGuess(guess) {
-    let wellPlaced = 0;
-    let misplaced = 0;
+    let wellPlaced = [];
+    let misplaced = [];
     let secretArray = secretCode.split('');
     let guessArray = guess.split('');
 
     for (let i = 0; i < gameVariants[currentGameVariant].codeLength; i++) {
         if (guessArray[i] === secretArray[i]) {
-            wellPlaced++;
+            wellPlaced.push(i);
             secretArray[i] = null;
             guessArray[i] = null;
         }
@@ -237,27 +244,36 @@ function checkGuess(guess) {
         if (guessArray[i] !== null) {
             const index = secretArray.indexOf(guessArray[i]);
             if (index !== -1) {
-                misplaced++;
+                misplaced.push(guessArray[i]);
                 secretArray[index] = null;
             }
         }
     }
 
-    return `Bien placés: ${wellPlaced}, Mal placés: ${misplaced}`;
+    const result = `Bien placés: ${wellPlaced.length}, Mal placés: ${misplaced.length}`;
+    addToHistory(guess, result, wellPlaced, misplaced);
+    return result;
 }
 
-function showFeedback(message) {
-    document.getElementById('feedback').innerText = message;
-}
-
-function addToHistory(guess, result) {
+function addToHistory(guess, result, wellPlaced, misplaced) {
     const historyItem = document.createElement('div');
     historyItem.classList.add('history-item');
 
-    guess.split('').forEach(digit => {
+    guess.split('').forEach((digit, index) => {
         const span = document.createElement('span');
         span.innerText = digit;
         span.classList.add('history-digit');
+
+        // Vérifier si la variante actuelle est une variante "facile"
+        if (currentGameVariant.endsWith('easy')) {
+            // Ajouter des classes pour la mise en surbrillance
+            if (wellPlaced.includes(index)) {
+                span.classList.add('well-placed'); // Chiffre bien placé
+            } else if (misplaced.includes(digit)) {
+                span.classList.add('misplaced'); // Chiffre mal placé
+            }
+        }
+
         historyItem.appendChild(span);
     });
 

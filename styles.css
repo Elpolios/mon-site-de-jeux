@@ -385,3 +385,12 @@ button:hover {
     color: #0277bd;
 }
 
+.history-digit.well-placed {
+    background-color: green;
+    color: white;
+}
+
+.history-digit.misplaced {
+    background-color: yellow;
+    color: black;
+}
