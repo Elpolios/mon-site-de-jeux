@@ -332,3 +332,56 @@ button:hover {
     border-color: red;
     background-color: #ffebee;
 }
+#menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background-color: #f4f4f4;
+    padding: 10px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+	 width: 150px; /* Largeur fixe pour le menu */
+}
+
+#menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background-color: #f4f4f4;
+    padding: 10px; /* Réduit le padding */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 150px; /* Largeur fixe pour le menu */
+}
+
+#menu h2 {
+    margin-top: 0;
+    color: #0288d1;
+    font-size: 1em; /* Réduit la taille du titre */
+}
+
+#menu button {
+    width: 100%;
+    padding: 5px; /* Réduit le padding des boutons */
+    margin: 2px 0; /* Réduit la marge entre les boutons */
+    background-color: #0288d1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 0.8em; /* Réduit la taille de la police */
+}
+
+#menu button:hover {
+    background-color: #0277bd;
+}
+
+#menu button.selected {
+    border: 2px solid #0277bd;
+    background-color: #e1f5fe;
+    color: #0277bd;
+}
+

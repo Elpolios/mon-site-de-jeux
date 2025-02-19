@@ -1,21 +1,99 @@
-let secretCode = generateSecretCode();
+let secretCode = '';
 let attempts = 0;
-const maxAttempts = 10;
+let maxAttempts = 10;
 const historyElement = document.getElementById('history');
 const countdownElement = document.getElementById('countdown');
 const tiles = document.querySelectorAll('.tile');
 const proposalTiles = document.querySelectorAll('.proposal-tile');
-let currentProposal = ['', '', '', ''];
+let currentProposal = [];
 let selectedIndex = 0;
 const excludedNumbers = [];
 const excludedNumbersDiv = document.getElementById('excluded-numbers');
 const excludeTile = document.getElementById('exclude-tile');
 let isExcluding = false;
+let currentGameVariant = '';
+
+const gameVariants = {
+    '3-easy': {
+        maxAttempts: 12,
+        codeLength: 3,
+        digits: '0123456789',
+        title: 'Le 3 Facile',
+    },
+    '3-hard': {
+        maxAttempts: 8,
+        codeLength: 3,
+        digits: '0123456789',
+        title: 'Le 3 Difficile',
+    },
+    '4-easy': {
+        maxAttempts: 10,
+        codeLength: 4,
+        digits: '0123456789',
+        title: 'Le 4 Facile',
+    },
+    '4-hard': {
+        maxAttempts: 6,
+        codeLength: 4,
+        digits: '0123456789',
+        title: 'Le 4 Difficile',
+    },
+    '5-easy': {
+        maxAttempts: 14,
+        codeLength: 5,
+        digits: '0123456789',
+        title: 'Le 5 Facile',
+    },
+    '5-hard': {
+        maxAttempts: 10,
+        codeLength: 5,
+        digits: '0123456789',
+        title: 'Le 5 Difficile',
+    }
+};
+
+function selectGame(gameType) {
+    document.querySelectorAll('#menu button').forEach(button => {
+        button.classList.remove('selected');
+    });
+
+    const selectedButton = document.querySelector(`#menu button[onclick="selectGame('${gameType}')"]`);
+    if (selectedButton) {
+        selectedButton.classList.add('selected');
+    }
+
+    currentGameVariant = gameType;
+    const variant = gameVariants[gameType];
+    if (variant) {
+        maxAttempts = variant.maxAttempts;
+        document.getElementById('game-title').textContent = variant.title;
+        resetGame();
+    }
+}
+
+function resetGame() {
+    secretCode = generateSecretCode();
+    attempts = 0;
+    const codeLength = gameVariants[currentGameVariant].codeLength;
+    currentProposal = new Array(codeLength).fill('');
+
+    // Afficher ou masquer les tuiles de proposition en fonction de la longueur du code
+    proposalTiles.forEach((tile, index) => {
+        tile.textContent = '';
+        tile.style.display = index < codeLength ? 'block' : 'none';
+    });
+
+    historyElement.innerHTML = '';
+    showFeedback('Nouveau code secret généré !');
+    resetTiles();
+}
 
 function generateSecretCode() {
     let code = '';
-    const numbers = '0123456789';
-    while (code.length < 4) {
+    const numbers = gameVariants[currentGameVariant].digits;
+    const codeLength = gameVariants[currentGameVariant].codeLength;
+
+    while (code.length < codeLength) {
         const randomIndex = Math.floor(Math.random() * numbers.length);
         const digit = numbers[randomIndex];
         if (!code.includes(digit)) {
@@ -25,11 +103,19 @@ function generateSecretCode() {
     return code;
 }
 
-function updateSecretCode() {
-    secretCode = generateSecretCode();
-    attempts = 0;
-    historyElement.innerHTML = ''; // Clear history
-    showFeedback('Nouveau code secret généré !');
+function resetTiles() {
+    const codeLength = gameVariants[currentGameVariant].codeLength;
+    currentProposal = new Array(codeLength).fill('');
+    proposalTiles.forEach((tile, index) => {
+        tile.textContent = '';
+        tile.style.display = index < codeLength ? 'block' : 'none';
+    });
+    tiles.forEach(tile => {
+        tile.classList.remove('disabled');
+    });
+    selectedIndex = 0;
+    isExcluding = false;
+    updateProposalTileSelection();
 }
 
 tiles.forEach((tile) => {
@@ -63,8 +149,9 @@ excludeTile.addEventListener('click', () => {
 });
 
 function updateProposalTileSelection() {
+    const codeLength = gameVariants[currentGameVariant].codeLength;
     proposalTiles.forEach((tile, index) => {
-        tile.classList.toggle('selected', index === selectedIndex);
+        tile.classList.toggle('selected', index === selectedIndex && index < codeLength);
     });
     excludeTile.classList.toggle('selected', selectedIndex === 'exclude');
 }
@@ -94,9 +181,11 @@ function clearSelected() {
 }
 
 function clearAll() {
-    currentProposal = ['', '', '', ''];
-    proposalTiles.forEach(tile => {
+    const codeLength = gameVariants[currentGameVariant].codeLength;
+    currentProposal = new Array(codeLength).fill('');
+    proposalTiles.forEach((tile, index) => {
         tile.textContent = '';
+        tile.style.display = index < codeLength ? 'block' : 'none';
     });
     tiles.forEach(tile => {
         tile.classList.remove('disabled');
@@ -120,7 +209,7 @@ function makeGuess() {
 
     if (guess === secretCode) {
         showFeedback('Félicitations ! Vous avez trouvé la combinaison secrète !');
-		showVictoryPopup();
+        showVictoryPopup();
         resetTiles();
     } else if (attempts >= maxAttempts) {
         showFeedback(`Désolé, vous avez épuisé vos tentatives. La combinaison secrète était ${secretCode}.`);
@@ -136,7 +225,7 @@ function checkGuess(guess) {
     let secretArray = secretCode.split('');
     let guessArray = guess.split('');
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < gameVariants[currentGameVariant].codeLength; i++) {
         if (guessArray[i] === secretArray[i]) {
             wellPlaced++;
             secretArray[i] = null;
@@ -144,7 +233,7 @@ function checkGuess(guess) {
         }
     }
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < gameVariants[currentGameVariant].codeLength; i++) {
         if (guessArray[i] !== null) {
             const index = secretArray.indexOf(guessArray[i]);
             if (index !== -1) {
@@ -180,27 +269,6 @@ function addToHistory(guess, result) {
     historyElement.appendChild(historyItem);
 }
 
-function resetTiles() {
-    currentProposal = ['', '', '', ''];
-    proposalTiles.forEach(tile => {
-        tile.textContent = '';
-    });
-    tiles.forEach(tile => {
-        tile.classList.remove('disabled');
-    });
-    selectedIndex = 0;
-    isExcluding = false;
-    updateProposalTileSelection();
-}
-
-function openRulesPopup() {
-    document.getElementById('rules-popup').style.display = 'flex';
-}
-
-function closePopup() {
-    document.getElementById('rules-popup').style.display = 'none';
-}
-
 function excludeNumber(digit) {
     if (!excludedNumbers.includes(digit)) {
         excludedNumbers.push(digit);
@@ -217,7 +285,7 @@ function excludeNumber(digit) {
         });
         excludedNumbersDiv.appendChild(excludedNumberElement);
         updateTileLockStatus();
-		 isExcluding = false;
+        isExcluding = false;
         excludeTile.classList.remove("selected");
         updateProposalTileSelection();
     }
@@ -228,7 +296,8 @@ function isExcluded(digit) {
 }
 
 function moveToNextEmptyIndex() {
-    for (let i = 0; i < currentProposal.length; i++) {
+    const codeLength = gameVariants[currentGameVariant].codeLength;
+    for (let i = 0; i < codeLength; i++) {
         if (currentProposal[i] === '') {
             selectedIndex = i;
             updateProposalTileSelection();
@@ -240,8 +309,9 @@ function moveToNextEmptyIndex() {
 window.onload = function() {
     startCountdown();
     checkForMidnight();
-	openRulesPopup();
-}
+    openRulesPopup();
+    selectGame('3-easy'); // Initialiser avec la variante facile par défaut
+};
 
 function startCountdown() {
     function updateCountdown() {
@@ -266,7 +336,7 @@ function checkForMidnight() {
         if (now.getHours() === 0 && now.getMinutes() === 0 && now.getSeconds() === 0) {
             updateSecretCode();
         }
-    }, 60000); // Check every minute
+    }, 60000); // Vérifie chaque minute
 }
 
 function showVictoryPopup() {
@@ -276,4 +346,12 @@ function showVictoryPopup() {
 
 function closeVictoryPopup() {
     document.getElementById('victory-popup').style.display = 'none';
+}
+
+function openRulesPopup() {
+    document.getElementById('rules-popup').style.display = 'flex';
+}
+
+function closePopup() {
+    document.getElementById('rules-popup').style.display = 'none';
 }
