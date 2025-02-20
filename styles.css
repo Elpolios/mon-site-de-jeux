@@ -5,8 +5,8 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #e0f7fa;
-    color: #333;
+    background-color: #d6f7be; /* Gris Clair */
+    color: #424242; /* Gris Foncé */
 }
 
 #game-container {
@@ -17,7 +17,7 @@ body {
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border: 1px solid #b3e5fc;
+    border: 1px solid #EC407A; /* Rose Pastel */
 }
 
 #game {
@@ -33,7 +33,7 @@ body {
 }
 
 .header h1 {
-    color: #0288d1;
+    color: #EC407A; /* Rose Pastel */
     font-size: 2em;
     margin: 0;
 }
@@ -43,11 +43,11 @@ body {
     border: none;
     font-size: 1.5em;
     cursor: pointer;
-    color: #0288d1;
+    color: #EC407A; /* Rose Pastel */
 }
 
 .rules-btn:hover {
-    color: #0277bd;
+    color: #d81b60; /* Rose foncé pour le hover */
 }
 
 .input-container {
@@ -70,20 +70,20 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 1.8em;
-    border: 2px solid #b3e5fc;
+    border: 2px solid #EC407A; /* Rose Pastel */
     border-radius: 8px;
-    background-color: #e1f5fe;
-    color: #0277bd;
+    background-color: #FCE4EC; /* Rose très clair */
+    color: #EC407A; /* Rose Pastel */
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 .tile:hover {
-    background-color: #b3e5fc;
+    background-color: #F3E5F5; /* Rose clair pour le hover */
 }
 
 .tile.disabled {
-    background-color: #e0e0e0;
+    background-color: #E0E0E0; /* Gris Clair */
     color: #999;
     cursor: not-allowed;
 }
@@ -99,7 +99,7 @@ body {
     padding: 10px 20px;
     font-size: 1em;
     cursor: pointer;
-    background-color: #0288d1;
+    background-color: #EC407A; /* Rose Pastel */
     color: white;
     border: none;
     border-radius: 8px;
@@ -107,7 +107,7 @@ body {
 }
 
 .button-container button:hover {
-    background-color: #0277bd;
+    background-color: #d81b60; /* Rose foncé pour le hover */
 }
 
 .proposal-container {
@@ -124,22 +124,22 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 1.8em;
-    border: 2px solid #b3e5fc;
+    border: 2px solid #EC407A; /* Rose Pastel */
     border-radius: 8px;
-    background-color: #e1f5fe;
-    color: #0277bd;
+    background-color: #FCE4EC; /* Rose très clair */
+    color: #EC407A; /* Rose Pastel */
     cursor: pointer;
 }
 
 .proposal-tile.selected {
-    border-color: #0288d1;
+    border-color: #d81b60; /* Rose foncé pour la sélection */
 }
 
 button {
     padding: 12px 24px;
     font-size: 1.2em;
     cursor: pointer;
-    background-color: #0288d1;
+    background-color: #EC407A; /* Rose Pastel */
     color: white;
     border: none;
     border-radius: 8px;
@@ -147,13 +147,13 @@ button {
 }
 
 button:hover {
-    background-color: #0277bd;
+    background-color: #d81b60; /* Rose foncé pour le hover */
 }
 
 #feedback {
     margin-top: 20px;
     font-size: 1.3em;
-    color: #0288d1;
+    color: #EC407A; /* Rose Pastel */
 }
 
 #history {
@@ -175,16 +175,16 @@ button:hover {
     text-align: center;
     font-size: 1.8em;
     margin: 0 8px;
-    border: 2px solid #b3e5fc;
+    border: 2px solid #EC407A; /* Rose Pastel */
     border-radius: 8px;
-    background-color: #e1f5fe;
-    color: #0277bd;
+    background-color: #FCE4EC; /* Rose très clair */
+    color: #EC407A; /* Rose Pastel */
 }
 
 .result {
     margin-left: 20px;
     font-size: 1.3em;
-    color: #0288d1;
+    color: #EC407A; /* Rose Pastel */
     white-space: nowrap;
 }
 
@@ -192,7 +192,7 @@ button:hover {
     margin-top: 20px;
     font-size: 1.3em;
     font-weight: bold;
-    color: #0288d1;
+    color: #EC407A; /* Rose Pastel */
 }
 
 /* Styles pour la pop-up */
@@ -222,12 +222,13 @@ button:hover {
     float: right;
     font-size: 1.8em;
     cursor: pointer;
-    color: #0288d1;
+    color: #EC407A; /* Rose Pastel */
 }
 
 .close-btn:hover {
-    color: #0277bd;
+    color: #d81b60; /* Rose foncé pour le hover */
 }
+
 /* Styles pour la section d'exclusion */
 #exclude-section {
     position: absolute;
@@ -238,7 +239,7 @@ button:hover {
 
 #exclude-section h3 {
     font-size: 1.5em;
-    color: #0288d1;
+    color: #EC407A; /* Rose Pastel */
 }
 
 #exclude-tile {
@@ -250,9 +251,9 @@ button:hover {
 }
 
 #exclude-tile.selected {
-    border-color: #0288d1;
-    background-color: #e1f5fe;
-    color: #0277bd;
+    border-color: #d81b60; /* Rose foncé pour la sélection */
+    background-color: #FCE4EC; /* Rose très clair */
+    color: #EC407A; /* Rose Pastel */
 }
 
 #excluded-numbers {
@@ -282,7 +283,7 @@ button:hover {
 }
 
 .tile.disabled {
-    background-color: #e0e0e0;
+    background-color: #E0E0E0; /* Gris Clair */
     color: #999;
     cursor: not-allowed;
 }
@@ -294,13 +295,10 @@ button:hover {
 }
 
 .tile.selected {
-    border-color: purple;
-    background-color: #e0f7fa;
-    color: purple;
+    border-color: #d81b60; /* Rose foncé pour la sélection */
+    background-color: #FCE4EC; /* Rose très clair */
+    color: #EC407A; /* Rose Pastel */
 }
-
-
-
 
 /* Styles pour les boutons de chiffres */
 #number-buttons {
@@ -315,16 +313,16 @@ button:hover {
     width: 50px;
     height: 50px;
     font-size: 1.8em;
-    border: 2px solid #b3e5fc;
+    border: 2px solid #EC407A; /* Rose Pastel */
     border-radius: 8px;
-    background-color: #e1f5fe;
-    color: #0277bd;
+    background-color: #FCE4EC; /* Rose très clair */
+    color: #EC407A; /* Rose Pastel */
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 #number-buttons button:hover {
-    background-color: #b3e5fc;
+    background-color: #F3E5F5; /* Rose clair pour le hover */
 }
 
 #number-buttons button.excluded {
@@ -332,6 +330,7 @@ button:hover {
     border-color: red;
     background-color: #ffebee;
 }
+
 #menu {
     position: fixed;
     top: 20px;
@@ -341,24 +340,12 @@ button:hover {
     padding: 10px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-	 width: 150px; /* Largeur fixe pour le menu */
-}
-
-#menu {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1000;
-    background-color: #f4f4f4;
-    padding: 10px; /* Réduit le padding */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
     width: 150px; /* Largeur fixe pour le menu */
 }
 
 #menu h2 {
     margin-top: 0;
-    color: #0288d1;
+    color: #EC407A; /* Rose Pastel */
     font-size: 1em; /* Réduit la taille du titre */
 }
 
@@ -366,7 +353,7 @@ button:hover {
     width: 100%;
     padding: 5px; /* Réduit le padding des boutons */
     margin: 2px 0; /* Réduit la marge entre les boutons */
-    background-color: #0288d1;
+    background-color: #EC407A; /* Rose Pastel */
     color: white;
     border: none;
     border-radius: 5px;
@@ -376,13 +363,13 @@ button:hover {
 }
 
 #menu button:hover {
-    background-color: #0277bd;
+    background-color: #d81b60; /* Rose foncé pour le hover */
 }
 
 #menu button.selected {
-    border: 2px solid #0277bd;
-    background-color: #e1f5fe;
-    color: #0277bd;
+    border: 2px solid #d81b60; /* Rose foncé pour la sélection */
+    background-color: #FCE4EC; /* Rose très clair */
+    color: #EC407A; /* Rose Pastel */
 }
 
 .history-digit.well-placed {
@@ -393,4 +380,315 @@ button:hover {
 .history-digit.misplaced {
     background-color: yellow;
     color: black;
+}
+
+/* Thème Rose et Gris */
+body.rose-gris {
+    background-color: #E0E0E0; /* Gris Clair */
+    color: #424242; /* Gris Foncé */
+}
+
+body.rose-gris #game-container {
+    border: 1px solid #EC407A; /* Rose Pastel */
+}
+
+body.rose-gris .header h1 {
+    color: #EC407A; /* Rose Pastel */
+}
+
+body.rose-gris .tile,
+body.rose-gris .proposal-tile,
+body.rose-gris button {
+    border-color: #EC407A; /* Rose Pastel */
+    background-color: #FCE4EC; /* Rose très clair */
+    color: #EC407A; /* Rose Pastel */
+}
+
+body.rose-gris .tile:hover,
+body.rose-gris .proposal-tile:hover,
+body.rose-gris button:hover {
+    background-color: #F3E5F5; /* Rose clair pour le hover */
+}
+
+/* Thème Bleu et Vert */
+body.bleu-vert {
+    background-color: #E0F7FA; /* Bleu très clair */
+    color: #0277BD; /* Bleu foncé pour le texte par défaut */
+}
+
+body.bleu-vert #game-container {
+    border: 1px solid #0288D1; /* Bleu */
+}
+
+body.bleu-vert .header h1 {
+    color: #0288D1; /* Bleu */
+}
+
+body.bleu-vert .rules-btn {
+    color: #0288D1; /* Bleu */
+}
+
+body.bleu-vert .rules-btn:hover {
+    color: #01579B; /* Bleu foncé pour le hover */
+}
+
+body.bleu-vert .tile,
+body.bleu-vert .proposal-tile,
+body.bleu-vert button {
+    border-color: #0288D1; /* Bleu */
+    background-color: #E1F5FE; /* Bleu très clair */
+    color: #0288D1; /* Bleu */
+}
+
+body.bleu-vert .tile:hover,
+body.bleu-vert .proposal-tile:hover,
+body.bleu-vert button:hover {
+    background-color: #B3E5FC; /* Bleu clair pour le hover */
+}
+
+body.bleu-vert #feedback {
+    color: #0288D1; /* Bleu */
+}
+
+body.bleu-vert #history .history-item .history-digit {
+    border-color: #0288D1; /* Bleu */
+    background-color: #E1F5FE; /* Bleu très clair */
+    color: #0288D1; /* Bleu */
+}
+
+body.bleu-vert #countdown {
+    color: #0288D1; /* Bleu */
+}
+
+body.bleu-vert .close-btn {
+    color: #0288D1; /* Bleu */
+}
+
+body.bleu-vert .close-btn:hover {
+    color: #01579B; /* Bleu foncé pour le hover */
+}
+
+body.bleu-vert #exclude-section h3 {
+    color: #0288D1; /* Bleu */
+}
+
+body.bleu-vert #menu h2 {
+    color: #0288D1; /* Bleu */
+}
+
+body.bleu-vert #menu button {
+    background-color: #0288D1; /* Bleu */
+    color: white;
+}
+
+body.bleu-vert #menu button:hover {
+    background-color: #01579B; /* Bleu foncé pour le hover */
+}
+
+body.bleu-vert #menu button.selected {
+    border: 2px solid #01579B; /* Bleu foncé pour la sélection */
+    background-color: #E1F5FE; /* Bleu très clair */
+    color: #0288D1; /* Bleu */
+}
+
+body.bleu-vert #number-buttons button {
+    border-color: #0288D1; /* Bleu */
+    background-color: #E1F5FE; /* Bleu très clair */
+    color: #0288D1; /* Bleu */
+}
+
+body.bleu-vert #number-buttons button:hover {
+    background-color: #B3E5FC; /* Bleu clair pour le hover */
+}
+
+body.bleu-vert .well-placed-example {
+    color: white;
+    background-color: #01579B; /* Bleu foncé pour "bien placé" */
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+body.bleu-vert .misplaced-example {
+    color: black;
+    background-color: #B3E5FC; /* Bleu clair pour "mal placé" */
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+/* Styles pour le texte de l'historique dans le thème bleu */
+body.bleu-vert #history .result {
+    color: #0288D1; /* Bleu */
+}
+
+body.bleu-vert .history-item .result {
+    color: #0288D1; /* Bleu */
+}
+body.bleu-vert .history-digit.well-placed {
+    background-color: #05662d !important; /* Vert foncé */
+    color: white !important;
+}
+
+body.bleu-vert .history-digit.misplaced {
+    background-color: #f1f52c !important; /* Jaune */
+    color: black !important;
+}
+
+
+
+/* Thème Noir */
+body.noir {
+    background-color: #121212; /* Bleu très clair */
+    color: #0277BD; /* Bleu foncé pour le texte par défaut */
+}
+
+body.noir #game-container {
+    border: 1px solid #121212; /* Bleu */
+}
+
+body.noir .header h1 {
+    color: #121212; /* Bleu */
+}
+
+body.noir .rules-btn {
+    color: #121212; /* Bleu */
+}
+
+body.noir .rules-btn:hover {
+    color: #121212; /* Bleu foncé pour le hover */
+}
+
+body.noir .tile,
+body.noir .proposal-tile,
+body.noir button {
+    border-color: #121212; /* Bleu */
+    background-color: #e0e0e0; /* Bleu très clair */
+    color: #121212; /* Bleu */
+}
+
+body.noir .tile:hover,
+body.noir .proposal-tile:hover,
+body.noir button:hover {
+    background-color: #B3E5FC; /* Bleu clair pour le hover */
+}
+
+body.noir #feedback {
+    color: #121212; /* Bleu */
+}
+
+body.noir #history .history-item .history-digit {
+    border-color: #121212; /* Bleu */
+    background-color: #e0e0e0; /* Bleu très clair */
+    color: #121212; /* Bleu */
+}
+
+body.noir #countdown {
+    color: #121212; /* Bleu */
+}
+
+body.noir .close-btn {
+    color: #121212; /* Bleu */
+}
+
+body.noir .close-btn:hover {
+    color: #01579B; /* Bleu foncé pour le hover */
+}
+
+body.noir #exclude-section h3 {
+    color: #121212; /* Bleu */
+}
+
+body.noir #menu h2 {
+    color: #121212; /* Bleu */
+}
+
+body.noir #menu button {
+    background-color: #121212; /* Bleu */
+    color: white;
+}
+
+body.noir #menu button:hover {
+    background-color: #01579B; /* Bleu foncé pour le hover */
+}
+
+body.noir #menu button.selected {
+    border: 2px solid #01579B; /* Bleu foncé pour la sélection */
+    background-color: #e0e0e0; /* Bleu très clair */
+    color: #121212; /* Bleu */
+}
+
+body.noir #number-buttons button {
+    border-color: #121212; /* Bleu */
+    background-color: #e0e0e0; /* Bleu très clair */
+    color: #121212; /* Bleu */
+}
+
+body.noir #number-buttons button:hover {
+    background-color: #B3E5FC; /* Bleu clair pour le hover */
+}
+
+body.noir .well-placed-example {
+    color: white;
+    background-color: #01579B; /* Bleu foncé pour "bien placé" */
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+body.noir .misplaced-example {
+    color: black;
+    background-color: #B3E5FC; /* Bleu clair pour "mal placé" */
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+/* Styles pour le texte de l'historique dans le thème bleu */
+body.noir #history .result {
+    color: #121212; /* Bleu */
+}
+
+body.noir .history-item .result {
+    color: #121212; /* Bleu */
+}
+body.noir .history-digit.well-placed {
+    background-color: #05662d !important; /* Vert foncé */
+    color: white !important;
+}
+
+body.noir .history-digit.misplaced {
+    background-color: #f1f52c !important; /* Jaune */
+    color: black !important;
+}
+
+
+
+
+
+
+
+/* Styles communs pour les cases de couleur */
+#theme-menu {
+    display: flex;
+    justify-content: left; /* Centre les éléments horizontalement */
+    align-items: center;
+    gap: 10px;
+    position: absolute; /* Positionne le menu de manière absolue */
+    top: 300px; /* 20px du haut de la page */
+    left: 8%; /* Centre par rapport à la largeur de la page */
+    transform: translateX(-50%); /* Déplace le menu de 50% de sa propre largeur vers la gauche */
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8); /* Fond semi-transparent pour le contraste */
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombre pour mieux voir le menu */
+}
+
+.theme-option {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ajoute une ombre pour mieux voir les cases */
+}
+
+.theme-option:hover {
+    transform: scale(1.1); /* Agrandit légèrement la case au survol */
 }

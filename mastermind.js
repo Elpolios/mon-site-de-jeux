@@ -15,42 +15,105 @@ let currentGameVariant = '';
 
 const gameVariants = {
     '3-easy': {
-        maxAttempts: 10,
+        maxAttempts: 12,
         codeLength: 3,
         digits: '0123456789',
         title: 'Le 3 Facile',
+        rules: `
+            <p>Devinez la combinaison secrète de 3 chiffres allant de 0 à 9. Vous avez 12 tentatives.</p>
+            <p>Les règles sont les suivantes :</p>
+            <ul>
+                <li>Pas de doublons : chaque chiffre est unique.</li>
+                <li>Après chaque tentative, vous recevrez des indices :
+                    <ul>
+                        <li><span class="well-placed-example">Bien placé</span> : chiffre correct à la bonne position (vert).</li>
+                        <li><span class="misplaced-example">Mal placé</span> : chiffre correct mais à la mauvaise position (jaune).</li>
+                    </ul>
+                </li>
+            </ul>
+        `,
     },
     '3-hard': {
-        maxAttempts: 10,
+        maxAttempts: 8,
         codeLength: 3,
         digits: '0123456789',
         title: 'Le 3 Difficile',
+        rules: `
+            <p>Devinez la combinaison secrète de 3 chiffres allant de 0 à 9. Vous avez 8 tentatives.</p>
+            <p>Les règles sont les suivantes :</p>
+            <ul>
+                <li>Pas de doublons : chaque chiffre est unique.</li>
+            </ul>
+        `,
     },
     '4-easy': {
         maxAttempts: 10,
         codeLength: 4,
         digits: '0123456789',
         title: 'Le 4 Facile',
+        rules: `
+            <p>Devinez la combinaison secrète de 4 chiffres allant de 0 à 9. Vous avez 10 tentatives.</p>
+            <p>Les règles sont les suivantes :</p>
+            <ul>
+                <li>Pas de doublons : chaque chiffre est unique.</li>
+                <li>Après chaque tentative, vous recevrez des indices :
+                    <ul>
+                        <li><span class="well-placed-example">Bien placé</span> : chiffre correct à la bonne position (vert).</li>
+                        <li><span class="misplaced-example">Mal placé</span> : chiffre correct mais à la mauvaise position (jaune).</li>
+                    </ul>
+                </li>
+            </ul>
+        `,
     },
     '4-hard': {
-        maxAttempts: 10,
+        maxAttempts: 6,
         codeLength: 4,
         digits: '0123456789',
         title: 'Le 4 Difficile',
+        rules: `
+            <p>Devinez la combinaison secrète de 4 chiffres allant de 0 à 9. Vous avez 6 tentatives.</p>
+            <p>Les règles sont les suivantes :</p>
+            <ul>
+                <li>Pas de doublons : chaque chiffre est unique.</li>
+            </ul>
+        `,
     },
     '5-easy': {
-        maxAttempts: 10,
+        maxAttempts: 14,
         codeLength: 5,
         digits: '0123456789',
         title: 'Le 5 Facile',
+        rules: `
+            <p>Devinez la combinaison secrète de 5 chiffres allant de 0 à 9. Vous avez 14 tentatives.</p>
+            <p>Les règles sont les suivantes :</p>
+            <ul>
+                <li>Pas de doublons : chaque chiffre est unique.</li>
+                <li>Après chaque tentative, vous recevrez des indices :
+                    <ul>
+                        <li><span class="well-placed-example">Bien placé</span> : chiffre correct à la bonne position (vert).</li>
+                        <li><span class="misplaced-example">Mal placé</span> : chiffre correct mais à la mauvaise position (jaune).</li>
+                    </ul>
+                </li>
+            </ul>
+        `,
     },
     '5-hard': {
         maxAttempts: 10,
         codeLength: 5,
         digits: '0123456789',
         title: 'Le 5 Difficile',
+        rules: `
+            <p>Devinez la combinaison secrète de 5 chiffres allant de 0 à 9. Vous avez 10 tentatives.</p>
+            <p>Les règles sont les suivantes :</p>
+            <ul>
+                <li>Pas de doublons : chaque chiffre est unique.</li>
+            </ul>
+        `,
     }
 };
+
+
+
 
 function selectGame(gameType) {
     document.querySelectorAll('#menu button').forEach(button => {
@@ -365,8 +428,20 @@ function closeVictoryPopup() {
 }
 
 function openRulesPopup() {
+    const variant = gameVariants[currentGameVariant];
+    const rulesMessage = variant ? variant.rules : 'Sélectionnez un mode de jeu pour voir les règles.';
+
+    document.getElementById('rules-popup').innerHTML = `
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h2>Règles du ${variant ? variant.title : 'Mastermind'}</h2>
+            <p>${rulesMessage}</p>
+        </div>
+    `;
+
     document.getElementById('rules-popup').style.display = 'flex';
 }
+
 
 function closePopup() {
     document.getElementById('rules-popup').style.display = 'none';
@@ -376,3 +451,15 @@ function showFeedback(message) {
     const feedbackElement = document.getElementById('feedback');
     feedbackElement.textContent = message;
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Définir le thème bleu par défaut
+    document.body.className = 'bleu-vert';
+
+    document.querySelectorAll('.theme-option').forEach(option => {
+        option.addEventListener('click', function() {
+            const selectedTheme = this.getAttribute('data-theme');
+            document.body.className = selectedTheme;
+        });
+    });
+});
