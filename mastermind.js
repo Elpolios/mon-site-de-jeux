@@ -15,13 +15,13 @@ let currentGameVariant = '';
 
 const gameVariants = {
     '3-easy': {
-        maxAttempts: 12,
+        maxAttempts: 10,
         codeLength: 3,
         digits: '0123456789',
         title: 'Le 3 Facile',
     },
     '3-hard': {
-        maxAttempts: 8,
+        maxAttempts: 10,
         codeLength: 3,
         digits: '0123456789',
         title: 'Le 3 Difficile',
@@ -33,13 +33,13 @@ const gameVariants = {
         title: 'Le 4 Facile',
     },
     '4-hard': {
-        maxAttempts: 6,
+        maxAttempts: 10,
         codeLength: 4,
         digits: '0123456789',
         title: 'Le 4 Difficile',
     },
     '5-easy': {
-        maxAttempts: 14,
+        maxAttempts: 10,
         codeLength: 5,
         digits: '0123456789',
         title: 'Le 5 Facile',
@@ -370,4 +370,9 @@ function openRulesPopup() {
 
 function closePopup() {
     document.getElementById('rules-popup').style.display = 'none';
+}
+
+function showFeedback(message) {
+    const feedbackElement = document.getElementById('feedback');
+    feedbackElement.textContent = message;
 }
