@@ -112,9 +112,6 @@ const gameVariants = {
     }
 };
 
-
-
-
 function selectGame(gameType) {
     document.querySelectorAll('#menu button').forEach(button => {
         button.classList.remove('selected');
@@ -182,7 +179,7 @@ function resetTiles() {
         tile.style.display = index < codeLength ? 'block' : 'none';
     });
     tiles.forEach(tile => {
-        tile.classList.remove('disabled');
+        tile.classList.remove('disabled', 'locked');
     });
     selectedIndex = 0;
     isExcluding = false;
@@ -197,7 +194,7 @@ function clearAll() {
         tile.style.display = index < codeLength ? 'block' : 'none';
     });
     tiles.forEach(tile => {
-        tile.classList.remove('disabled');
+        tile.classList.remove('disabled', 'locked');
     });
     selectedIndex = 0;
     isExcluding = false;
@@ -212,7 +209,7 @@ tiles.forEach((tile) => {
         } else if (!isExcluded(digit) && !currentProposal.includes(digit)) {
             currentProposal[selectedIndex] = digit;
             proposalTiles[selectedIndex].textContent = digit;
-            tile.classList.add('disabled');
+            tile.classList.add('disabled', 'locked');
             moveToNextEmptyIndex();
             updateTileLockStatus();
         }
@@ -246,9 +243,9 @@ function updateTileLockStatus() {
     tiles.forEach(tile => {
         const digit = tile.textContent;
         if (isExcluded(digit) || currentProposal.includes(digit)) {
-            tile.classList.add('disabled');
+            tile.classList.add('disabled', 'locked');
         } else {
-            tile.classList.remove('disabled');
+            tile.classList.remove('disabled', 'locked');
         }
     });
 }
@@ -260,7 +257,7 @@ function clearSelected() {
         proposalTiles[selectedIndex].textContent = '';
         const tile = document.getElementById(`tile-${digit}`);
         if (tile) {
-            tile.classList.remove('disabled');
+            tile.classList.remove('disabled', 'locked');
         }
         moveToNextEmptyIndex();
     }
@@ -441,7 +438,6 @@ function openRulesPopup() {
 
     document.getElementById('rules-popup').style.display = 'flex';
 }
-
 
 function closePopup() {
     document.getElementById('rules-popup').style.display = 'none';

@@ -88,6 +88,13 @@ body {
     cursor: not-allowed;
 }
 
+.tile.locked {
+    background-color: #757575 !important; /* Gris sombre pour indiquer le verrouillage */
+    color: #ffffff !important; /* Texte blanc pour un meilleur contraste */
+    cursor: not-allowed !important;
+    opacity: 0.7 !important; /* Réduit l'opacité pour un effet de grisage */
+}
+
 .button-container {
     display: flex;
     justify-content: center;
@@ -533,8 +540,6 @@ body.bleu-vert .history-digit.misplaced {
     color: black !important;
 }
 
-
-
 /* Thème Noir */
 body.noir {
     background-color: #121212; /* Bleu très clair */
@@ -657,12 +662,6 @@ body.noir .history-digit.misplaced {
     background-color: #f1f52c !important; /* Jaune */
     color: black !important;
 }
-
-
-
-
-
-
 
 /* Styles communs pour les cases de couleur */
 #theme-menu {
