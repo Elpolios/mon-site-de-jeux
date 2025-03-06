@@ -60,6 +60,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const attemptElement = document.createElement('div');
         attemptElement.className = 'attempt';
 
+        const numberElement = document.createElement('div');
+        numberElement.className = 'attempt-number';
+        numberElement.textContent = i + 1;
+        attemptElement.appendChild(numberElement);
+
         const tilesElement = document.createElement('div');
         tilesElement.className = 'attempt-tiles';
 
@@ -71,6 +76,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const resultElement = document.createElement('div');
         resultElement.className = 'result';
+
+        const wellPlaced = document.createElement('div');
+        wellPlaced.className = 'well-placed';
+        resultElement.appendChild(wellPlaced);
+
+        const misplaced = document.createElement('div');
+        misplaced.className = 'misplaced';
+        resultElement.appendChild(misplaced);
 
         attemptElement.appendChild(tilesElement);
         attemptElement.appendChild(resultElement);
@@ -134,35 +147,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function makeGuess() {
-        if (!currentAttempt.includes(null)) {
-            const correctPositions = currentAttempt.filter((num, index) => num === combination[index]).length;
-            const wrongPositions = currentAttempt.filter(num => combination.includes(num)).length - correctPositions;
+    if (!currentAttempt.includes(null)) {
+        attempts++;
+        const correctPositions = currentAttempt.filter((num, index) => num === combination[index]).length;
+        const wrongPositions = currentAttempt.filter(num => combination.includes(num)).length - correctPositions;
 
-            // Fill the history from the bottom up
-            const attemptElements = historyContainer.getElementsByClassName('attempt');
-            const currentAttemptElement = attemptElements[attempts];
+        // Fill the history from the bottom up
+        const attemptElements = historyContainer.getElementsByClassName('attempt');
+        const currentAttemptElement = attemptElements[attempts - 1];
 
-            const tilesElement = currentAttemptElement.getElementsByClassName('attempt-tiles')[0];
-            for (let i = 0; i < combinationLength; i++) {
-                tilesElement.children[i].textContent = currentAttempt[i];
+        const tilesElement = currentAttemptElement.getElementsByClassName('attempt-tiles')[0];
+        for (let i = 0; i < combinationLength; i++) {
+            const tile = tilesElement.children[i];
+            tile.textContent = currentAttempt[i];
+
+            // Change color based on position and mode
+            if ((mode === '3easy' || mode === '4easy' || mode === '5easy') && currentAttempt[i] === combination[i]) {
+                tile.style.backgroundColor = '#7AA95C'; // Bien placé
+            } else if ((mode === '3easy' || mode === '4easy' || mode === '5easy') && combination.includes(currentAttempt[i])) {
+                tile.style.backgroundColor = '#FEEAA1'; // Mal placé
+            } else {
+                tile.style.backgroundColor = '#EBF2FA'; // Réinitialiser la couleur par défaut
             }
-
-            const resultElement = currentAttemptElement.getElementsByClassName('result')[0];
-            resultElement.textContent = `Bien placés: ${correctPositions}, Mal placés: ${wrongPositions}`;
-
-            attempts++;
-
-            if (correctPositions === combinationLength) {
-                alert(`Félicitations ! Vous avez trouvé la combinaison en ${attempts} tentatives.`);
-                resetGame();
-            } else if (attempts === maxAttempts) {
-                alert(`Vous avez perdu ! La combinaison était ${combination.join('')}.`);
-                resetGame();
-            }
-
-            clearAll();
         }
+
+        const resultElement = currentAttemptElement.getElementsByClassName('result')[0];
+        resultElement.children[0].textContent = `Bien placés: ${correctPositions}`;
+        resultElement.children[1].textContent = `Mal placés: ${wrongPositions}`;
+
+        if (correctPositions === combinationLength) {
+            alert(`Félicitations ! Vous avez trouvé la combinaison en ${attempts} tentatives.`);
+            resetGame();
+        } else if (attempts === maxAttempts) {
+            alert(`Vous avez perdu ! La combinaison était ${combination.join('')}.`);
+            resetGame();
+        }
+
+        clearAll();
     }
+}
+
 
     function resetGame() {
         combination = generateCombination(combinationLength);
@@ -186,7 +210,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 tile.textContent = '';
             }
             const resultElement = attemptElement.getElementsByClassName('result')[0];
-            resultElement.textContent = '';
+            resultElement.children[0].textContent = '';
+            resultElement.children[1].textContent = '';
         }
     }
 });

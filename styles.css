@@ -141,17 +141,27 @@ body {
 .history {
     margin-top: 20px;
     color: #06668C;
+    text-align: left;
 }
-
 .history .attempt {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
 }
 
+.history .attempt-number {
+    width: 30px;
+    text-align: right;
+    margin-right: 10px;
+    font-size: 16px;
+    color: #06668C;
+}
+
 .history .attempt-tiles {
     display: flex;
     gap: 5px;
+    flex-grow: 1;
+    justify-content: center;
 }
 
 .history .attempt-tile {
@@ -165,15 +175,46 @@ body {
     border-radius: 8px;
     background-color: #EBF2FA;
     color: #06668C;
+    text-align: center;
 }
 
 .history .result {
-    margin-left: 10px;
-    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 120px; /* Largeur fixe pour le conteneur des résultats */
+    margin-left: 20px;
+    font-size: 14px;
     color: #06668C;
 }
 
+.history .result .well-placed,
+.history .result .misplaced {
+    margin: 2px 0;
+}
+
+
 /* Styles for index.html buttons */
+.menu-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #EBF2FA;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.menu-container h1 {
+    margin-bottom: 20px;
+    color: #06668C;
+    font-size: 2em;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .menu button {
     padding: 15px 30px;
     font-size: 18px;
@@ -184,7 +225,6 @@ body {
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin: 5px;
 }
 
 .menu button:hover {
