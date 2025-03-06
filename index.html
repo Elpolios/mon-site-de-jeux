@@ -7,99 +7,15 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div id="menu">
-    <h2>Menu</h2>
-    <button onclick="selectGame('3-easy')">Le 3 Facile</button>
-    <button onclick="selectGame('3-hard')">Le 3 Difficile</button>
-    <button onclick="selectGame('4-easy')">Le 4 Facile</button>
-    <button onclick="selectGame('4-hard')">Le 4 Difficile</button>
-    <button onclick="selectGame('5-easy')">Le 5 Facile</button>
-    <button onclick="selectGame('5-hard')">Le 5 Difficile</button>
-</div>
-
-<div id="game-container">
-    <div id="game">
-        <div class="header">
-            <h1 id="game-title">Mastermind</h1>
-            <button class="rules-btn" onclick="openRulesPopup()">📜</button>
-        </div>
-        <div class="input-container">
-            <div class="tile-row">
-                <div class="tile" id="tile-0">0</div>
-                <div class="tile" id="tile-1">1</div>
-                <div class="tile" id="tile-2">2</div>
-                <div class="tile" id="tile-3">3</div>
-                <div class="tile" id="tile-4">4</div>
-            </div>
-            <div class="tile-row">
-                <div class="tile" id="tile-5">5</div>
-                <div class="tile" id="tile-6">6</div>
-                <div class="tile" id="tile-7">7</div>
-                <div class="tile" id="tile-8">8</div>
-                <div class="tile" id="tile-9">9</div>
-            </div>
-        </div>
-        <div class="button-container">
-            <button onclick="clearSelected()">Vider</button>
-            <button onclick="clearAll()">Vider Tout</button>
-        </div>
-        <div class="proposal-container">
-            <div class="proposal-tile" id="proposal-1"></div>
-            <div class="proposal-tile" id="proposal-2"></div>
-            <div class="proposal-tile" id="proposal-3"></div>
-            <div class="proposal-tile" id="proposal-4"></div>
-            <div class="proposal-tile" id="proposal-5"></div>
-        </div>
-        <button onclick="makeGuess()">Deviner</button>
-        <div id="feedback"></div>
-        <div id="history"></div>
-        <div id="countdown"></div>
+    <div class="menu">
+        <h1>Mastermind</h1>
+        <button onclick="window.location.href='game.html?mode=daily'">Daily</button>
+        <button onclick="window.location.href='game.html?mode=3easy'">3 Facile</button>
+        <button onclick="window.location.href='game.html?mode=3hard'">3 Difficile</button>
+        <button onclick="window.location.href='game.html?mode=4easy'">4 Facile</button>
+        <button onclick="window.location.href='game.html?mode=4hard'">4 Difficile</button>
+        <button onclick="window.location.href='game.html?mode=5easy'">5 Facile</button>
+        <button onclick="window.location.href='game.html?mode=5hard'">5 Difficile</button>
     </div>
-</div>
-
-<!-- Section pour enlever les chiffres -->
-<div id="exclude-section">
-    <h3>Enlever</h3>
-    <div id="exclude-tile" class="tile"></div>
-    <div id="excluded-numbers"></div>
-</div>
-
-<!-- Pop-up pour les règles -->
-<div id="rules-popup" class="popup">
-    <div class="popup-content">
-        <span class="close-btn" onclick="closePopup()">&times;</span>
-        <h2>Règles du Mastermind</h2>
-        <p>Devinez la combinaison secrète de 4 chiffres allant de 0 à 9.</p>
-        <p>Les règles sont les suivantes :</p>
-        <ul>
-            <li>Pas de doublons : chaque chiffre est unique.</li>
-            <li>Vous avez 10 tentatives pour deviner la combinaison.</li>
-            <li>Après chaque tentative, vous recevrez des indices :
-                <ul>
-                    <li>Bien placé : chiffre correct à la bonne position.</li>
-                    <li>Mal placé : chiffre correct mais à la mauvaise position.</li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</div>
-
-<!-- Pop-up de victoire -->
-<div id="victory-popup" class="popup">
-    <div class="popup-content">
-        <span class="close-btn" onclick="closeVictoryPopup()">&times;</span>
-        <h2>🎉 Bravo ! 🎉</h2>
-        <p id="victory-message"></p>
-    </div>
-</div>
-
-<script src="mastermind.js"></script>
-
-<div id="theme-menu">
-    <div class="theme-option" data-theme="rose-gris" style="background-color: #EC407A;"></div>
-    <div class="theme-option" data-theme="bleu-vert" style="background-color: #0288D1;"></div>
-    <div class="theme-option" data-theme="noir" style="background-color: #000000;"></div>
-</div>
-
 </body>
 </html>

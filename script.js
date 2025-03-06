@@ -1,80 +1,151 @@
-// Fonction pour obtenir la date du jour en format YYYY-MM-DD
-function getCurrentDate() {
-    const date = new Date();
-    return date.toISOString().split('T')[0]; // Ex: "2024-01-29"
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const mode = urlParams.get('mode');
+    let combinationLength = 0;
+    let maxAttempts = 10;
 
-// Fonction pour générer un calcul unique chaque jour
-function generateDailyCalculation() {
-    const date = new Date();
-    const seed = date.getFullYear() * 10000 + date.getMonth() * 100 + date.getDate(); // Unique par jour
-
-    // Générer des nombres pseudo-aléatoires basés sur la date
-    const num1 = (seed % 10) + 1;
-    const num2 = ((seed * 3) % 10) + 1;
-    
-    const operation = (seed % 2 === 0) ? "+" : "*"; // Alterner entre + et *
-    const correctAnswer = (operation === "+") ? num1 + num2 : num1 * num2;
-
-    return { question: `${num1} ${operation} ${num2} = ?`, answer: correctAnswer };
-}
-
-// Vérifier si l'utilisateur a déjà joué aujourd'hui
-function checkPlayAvailability() {
-    const lastPlayedDate = localStorage.getItem('lastPlayedDate');
-    const currentDate = getCurrentDate();
-
-    return lastPlayedDate !== currentDate; // true = peut jouer, false = doit attendre
-}
-
-// Mettre à jour le compte à rebours
-function updateCountdown() {
-    const now = new Date();
-    const midnight = new Date(now);
-    midnight.setHours(24, 0, 0, 0); // Prochain minuit
-
-    const timeLeft = midnight - now;
-    
-    const hours = Math.floor(timeLeft / (1000 * 60 * 60));
-    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-    document.getElementById("countdown").textContent = `${hours}h ${minutes}m ${seconds}s`;
-
-    setTimeout(updateCountdown, 1000); // Mettre à jour chaque seconde
-}
-
-// Initialisation du jeu
-function initGame() {
-    const canPlay = checkPlayAvailability();
-    const dailyCalculation = generateDailyCalculation();
-
-    document.getElementById("calculation").textContent = dailyCalculation.question;
-    
-    if (!canPlay) {
-        document.getElementById("resultMessage").textContent = "🚫 Tu as déjà joué aujourd'hui. Reviens demain !";
-        document.getElementById("submitAnswer").disabled = true;
-        document.getElementById("userAnswer").disabled = true;
-    } else {
-        document.getElementById("submitAnswer").addEventListener("click", function() {
-            const userAnswer = parseInt(document.getElementById("userAnswer").value, 10);
-            
-            if (userAnswer === dailyCalculation.answer) {
-                document.getElementById("resultMessage").textContent = "🎉 Bravo, bonne réponse !";
-            } else {
-                document.getElementById("resultMessage").textContent = "❌ Mauvaise réponse, réessaie demain.";
-            }
-
-            // Enregistrer que l'utilisateur a joué aujourd'hui
-            localStorage.setItem('lastPlayedDate', getCurrentDate());
-            document.getElementById("submitAnswer").disabled = true;
-            document.getElementById("userAnswer").disabled = true;
-        });
+    switch (mode) {
+        case '3easy':
+        case '3hard':
+            combinationLength = 3;
+            break;
+        case '4easy':
+        case '4hard':
+            combinationLength = 4;
+            break;
+        case '5easy':
+        case '5hard':
+            combinationLength = 5;
+            break;
+        default:
+            combinationLength = 4; // Default for daily
     }
 
-    // Lancer le compte à rebours
-    updateCountdown();
-}
+    const tilesContainer = document.getElementById('tiles');
+    const attemptContainer = document.getElementById('attempt');
+    const historyContainer = document.getElementById('history');
+    const clearButton = document.getElementById('clear');
+    const clearAllButton = document.getElementById('clearAll');
+    const guessButton = document.getElementById('guess');
+    const backButton = document.getElementById('back');
 
-// Démarrer le jeu quand la page est chargée
-document.addEventListener("DOMContentLoaded", initGame);
+    let combination = generateCombination(combinationLength);
+    let currentAttempt = Array(combinationLength).fill(null);
+    let attempts = 0;
+    let selectedIndex = 0;
+
+    // Create tiles
+    for (let i = 0; i < 10; i++) {
+        const button = document.createElement('button');
+        button.textContent = i;
+        button.addEventListener('click', () => addToAttempt(i));
+        tilesContainer.appendChild(button);
+    }
+
+    // Create attempt inputs
+    for (let i = 0; i < combinationLength; i++) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.maxLength = 1;
+        input.readOnly = true;
+        input.addEventListener('click', () => selectInput(i));
+        attemptContainer.appendChild(input);
+    }
+
+    // Pre-select the first input
+    selectInput(selectedIndex);
+
+    clearButton.addEventListener('click', clearSelected);
+    clearAllButton.addEventListener('click', clearAll);
+    guessButton.addEventListener('click', makeGuess);
+    backButton.addEventListener('click', () => window.location.href = 'index.html');
+
+    function generateCombination(length) {
+        const arr = [];
+        while (arr.length < length) {
+            const num = Math.floor(Math.random() * 10);
+            if (!arr.includes(num)) {
+                arr.push(num);
+            }
+        }
+        return arr;
+    }
+
+    function selectInput(index) {
+        selectedIndex = index;
+        for (let i = 0; i < combinationLength; i++) {
+            attemptContainer.children[i].style.border = i === index ? '2px solid blue' : '1px solid black';
+        }
+    }
+
+    function addToAttempt(num) {
+        if (!currentAttempt.includes(num)) {
+            currentAttempt[selectedIndex] = num;
+            attemptContainer.children[selectedIndex].value = num;
+            tilesContainer.children[num].disabled = true;
+
+            // Move to the next empty input or stay if all are filled
+            let nextIndex = (selectedIndex + 1) % combinationLength;
+            while (currentAttempt[nextIndex] !== null && nextIndex !== selectedIndex) {
+                nextIndex = (nextIndex + 1) % combinationLength;
+            }
+            selectInput(nextIndex);
+        }
+    }
+
+    function clearSelected() {
+        if (currentAttempt[selectedIndex] !== null) {
+            const num = currentAttempt[selectedIndex];
+            currentAttempt[selectedIndex] = null;
+            attemptContainer.children[selectedIndex].value = '';
+            tilesContainer.children[num].disabled = false;
+        }
+    }
+
+    function clearAll() {
+        for (let i = 0; i < combinationLength; i++) {
+            selectedIndex = i;
+            clearSelected();
+        }
+        selectedIndex = 0;
+        selectInput(selectedIndex);
+    }
+
+    function makeGuess() {
+        if (!currentAttempt.includes(null)) {
+            attempts++;
+            const correctPositions = currentAttempt.filter((num, index) => num === combination[index]).length;
+            const wrongPositions = currentAttempt.filter(num => combination.includes(num)).length - correctPositions;
+
+            const historyItem = document.createElement('div');
+            historyItem.textContent = `Tentative ${attempts}: ${currentAttempt.join('')} - Bien placés: ${correctPositions}, Mal placés: ${wrongPositions}`;
+            historyContainer.appendChild(historyItem);
+
+            if (correctPositions === combinationLength) {
+                alert(`Félicitations ! Vous avez trouvé la combinaison en ${attempts} tentatives.`);
+                resetGame();
+            } else if (attempts === maxAttempts) {
+                alert(`Vous avez perdu ! La combinaison était ${combination.join('')}.`);
+                resetGame();
+            }
+
+            clearAll();
+        }
+    }
+
+    function resetGame() {
+        combination = generateCombination(combinationLength);
+        currentAttempt = Array(combinationLength).fill(null);
+        attempts = 0;
+        selectedIndex = 0;
+        historyContainer.innerHTML = '';
+        for (let button of tilesContainer.children) {
+            button.disabled = false;
+        }
+        for (let input of attemptContainer.children) {
+            input.value = '';
+            input.style.border = '1px solid black';
+        }
+        selectInput(selectedIndex);
+    }
+});
