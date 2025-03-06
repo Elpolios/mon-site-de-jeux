@@ -1,53 +1,193 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: #EBF2FA;
+    color: #06668C;
 }
 
-.menu, .game-container {
+.game-container {
     text-align: center;
-}
-
-.menu button, .buttons button {
-    margin: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #EBF2FA;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .tiles {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
     margin-bottom: 20px;
 }
 
 .tiles button {
-    margin: 5px;
-    padding: 10px;
-    font-size: 18px;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    background-color: #A4BD01;
+    border: none;
+    border-radius: 8px;
+    color: #EBF2FA;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tiles button:hover {
+    background-color: #679436;
+    transform: scale(1.05);
+}
+
+.tiles button:disabled {
+    background-color: #C5C6C6;
+    cursor: not-allowed;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.controls button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #427AA1;
+    color: #EBF2FA;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.controls button:hover {
+    background-color: #06668C;
+    transform: scale(1.05);
 }
 
 .attempt {
     display: flex;
     justify-content: center;
+    gap: 10px;
     margin-bottom: 20px;
 }
 
 .attempt input {
-    width: 30px;
-    height: 30px;
-    font-size: 18px;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
     text-align: center;
-    margin: 0 5px;
+    border: 2px solid #427AA1;
+    border-radius: 8px;
+    background-color: #EBF2FA;
+    color: #06668C;
+}
+
+.attempt input:focus {
+    border-color: #A4BD01;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #427AA1;
+    color: #EBF2FA;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.buttons button:hover {
+    background-color: #06668C;
+    transform: scale(1.05);
+}
+
+.back-button {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #427AA1;
+    color: #EBF2FA;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.back-button:hover {
+    background-color: #06668C;
+    transform: scale(1.05);
 }
 
 .history {
     margin-top: 20px;
+    color: #06668C;
 }
 
-.history div {
-    margin: 5px 0;
+.history .attempt {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.history .attempt-tiles {
+    display: flex;
+    gap: 5px;
+}
+
+.history .attempt-tile {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    border: 2px solid #427AA1;
+    border-radius: 8px;
+    background-color: #EBF2FA;
+    color: #06668C;
+}
+
+.history .result {
+    margin-left: 10px;
+    font-size: 16px;
+    color: #06668C;
+}
+
+/* Styles for index.html buttons */
+.menu button {
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #427AA1;
+    color: #EBF2FA;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 5px;
+}
+
+.menu button:hover {
+    background-color: #06668C;
+    transform: scale(1.05);
 }

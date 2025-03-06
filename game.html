@@ -9,14 +9,18 @@
 <body>
     <div class="game-container">
         <div class="tiles" id="tiles"></div>
-        <div class="attempt" id="attempt"></div>
-        <div class="buttons">
+        <div class="controls">
             <button id="clear">Vider la case</button>
             <button id="clearAll">Vider toutes les cases</button>
-            <button id="guess">Deviner</button>
-            <button id="back">Retour au menu</button>
         </div>
-        <div class="history" id="history"></div>
+        <div class="attempt" id="attempt"></div>
+        <div class="buttons">
+            <button id="guess">Deviner</button>
+        </div>
+        <div class="history" id="history">
+            <!-- 10 lignes vides pour les tentatives -->
+        </div>
+        <button id="back" class="back-button">🏠 Retour au menu</button>
     </div>
     <script src="script.js"></script>
 </body>

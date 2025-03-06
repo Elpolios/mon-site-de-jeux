@@ -55,6 +55,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // Pre-select the first input
     selectInput(selectedIndex);
 
+    // Initialize history with 10 empty attempts
+    for (let i = 0; i < maxAttempts; i++) {
+        const attemptElement = document.createElement('div');
+        attemptElement.className = 'attempt';
+
+        const tilesElement = document.createElement('div');
+        tilesElement.className = 'attempt-tiles';
+
+        for (let j = 0; j < combinationLength; j++) {
+            const tile = document.createElement('div');
+            tile.className = 'attempt-tile';
+            tilesElement.appendChild(tile);
+        }
+
+        const resultElement = document.createElement('div');
+        resultElement.className = 'result';
+
+        attemptElement.appendChild(tilesElement);
+        attemptElement.appendChild(resultElement);
+        historyContainer.appendChild(attemptElement);
+    }
+
     clearButton.addEventListener('click', clearSelected);
     clearAllButton.addEventListener('click', clearAll);
     guessButton.addEventListener('click', makeGuess);
@@ -74,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function selectInput(index) {
         selectedIndex = index;
         for (let i = 0; i < combinationLength; i++) {
-            attemptContainer.children[i].style.border = i === index ? '2px solid blue' : '1px solid black';
+            attemptContainer.children[i].style.border = i === index ? '2px solid #A4BD01' : '2px solid #427AA1';
         }
     }
 
@@ -113,13 +135,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function makeGuess() {
         if (!currentAttempt.includes(null)) {
-            attempts++;
             const correctPositions = currentAttempt.filter((num, index) => num === combination[index]).length;
             const wrongPositions = currentAttempt.filter(num => combination.includes(num)).length - correctPositions;
 
-            const historyItem = document.createElement('div');
-            historyItem.textContent = `Tentative ${attempts}: ${currentAttempt.join('')} - Bien placés: ${correctPositions}, Mal placés: ${wrongPositions}`;
-            historyContainer.appendChild(historyItem);
+            // Fill the history from the bottom up
+            const attemptElements = historyContainer.getElementsByClassName('attempt');
+            const currentAttemptElement = attemptElements[attempts];
+
+            const tilesElement = currentAttemptElement.getElementsByClassName('attempt-tiles')[0];
+            for (let i = 0; i < combinationLength; i++) {
+                tilesElement.children[i].textContent = currentAttempt[i];
+            }
+
+            const resultElement = currentAttemptElement.getElementsByClassName('result')[0];
+            resultElement.textContent = `Bien placés: ${correctPositions}, Mal placés: ${wrongPositions}`;
+
+            attempts++;
 
             if (correctPositions === combinationLength) {
                 alert(`Félicitations ! Vous avez trouvé la combinaison en ${attempts} tentatives.`);
@@ -138,14 +169,24 @@ document.addEventListener('DOMContentLoaded', () => {
         currentAttempt = Array(combinationLength).fill(null);
         attempts = 0;
         selectedIndex = 0;
-        historyContainer.innerHTML = '';
         for (let button of tilesContainer.children) {
             button.disabled = false;
         }
         for (let input of attemptContainer.children) {
             input.value = '';
-            input.style.border = '1px solid black';
+            input.style.border = '2px solid #427AA1';
         }
         selectInput(selectedIndex);
+
+        // Clear history
+        const attemptElements = historyContainer.getElementsByClassName('attempt');
+        for (let attemptElement of attemptElements) {
+            const tilesElement = attemptElement.getElementsByClassName('attempt-tiles')[0];
+            for (let tile of tilesElement.children) {
+                tile.textContent = '';
+            }
+            const resultElement = attemptElement.getElementsByClassName('result')[0];
+            resultElement.textContent = '';
+        }
     }
 });
