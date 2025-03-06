@@ -2,11 +2,12 @@ body {
     font-family: 'Roboto', sans-serif;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Changer pour commencer en haut */
     height: 100vh;
     margin: 0;
     background-color: #EBF2FA;
     color: #06668C;
+    overflow-y: auto; /* Activer le défilement vertical */
 }
 
 .game-container {
@@ -17,6 +18,8 @@ body {
     background-color: #EBF2FA;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Activer le défilement vertical si nécessaire */
+    max-height: 90vh; /* Limiter la hauteur pour permettre le défilement */
 }
 
 .tiles {
@@ -119,7 +122,7 @@ body {
 }
 
 .back-button {
-    position: absolute;
+    position: fixed;
     bottom: 20px;
     left: 20px;
     padding: 10px 20px;
@@ -131,6 +134,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Assure que le bouton reste au-dessus */
 }
 
 .back-button:hover {
@@ -142,7 +146,9 @@ body {
     margin-top: 20px;
     color: #06668C;
     text-align: left;
+    flex-shrink: 0; /* Empêche le rétrécissement */
 }
+
 .history .attempt {
     display: flex;
     align-items: center;
@@ -191,43 +197,4 @@ body {
 .history .result .well-placed,
 .history .result .misplaced {
     margin: 2px 0;
-}
-
-
-/* Styles for index.html buttons */
-.menu-container {
-    text-align: center;
-    padding: 20px;
-    background-color: #EBF2FA;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.menu-container h1 {
-    margin-bottom: 20px;
-    color: #06668C;
-    font-size: 2em;
-}
-
-.menu {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.menu button {
-    padding: 15px 30px;
-    font-size: 18px;
-    background-color: #427AA1;
-    color: #EBF2FA;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.menu button:hover {
-    background-color: #06668C;
-    transform: scale(1.05);
 }
