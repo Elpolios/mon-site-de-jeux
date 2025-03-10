@@ -34,7 +34,50 @@ document.addEventListener('DOMContentLoaded', () => {
     let attempts = 0;
     let selectedIndex = 0;
 
-    // Create tiles
+    // 🟢 Générer le code journalier unique si on est en mode "daily"
+    function getDailyUniqueCode() {
+        let now = new Date();
+
+        // Ajuster pour l'heure de Paris (hiver UTC+1, été UTC+2)
+        let parisOffset = new Date().getTimezoneOffset() / -60;
+        now.setHours(0 - parisOffset, 0, 0, 0);
+
+        // Transformer la date en une graine unique (ex: 20240310 devient 20240310)
+        let seed = parseInt(now.getFullYear().toString() +
+                            (now.getMonth() + 1).toString().padStart(2, "0") +
+                            now.getDate().toString().padStart(2, "0"));
+
+        // Générer une liste de chiffres [0-9] et la mélanger selon la seed
+        let digits = [...Array(10).keys()]; // [0,1,2,3,4,5,6,7,8,9]
+        
+        for (let i = digits.length - 1; i > 0; i--) {
+            let j = (seed + i) % (i + 1); // Mélange pseudo-aléatoire basé sur la seed
+            [digits[i], digits[j]] = [digits[j], digits[i]]; // Échanger les valeurs
+        }
+
+        // Prendre les 4 premiers chiffres mélangés
+        return digits.slice(0, 4);
+    }
+
+    function generateCombination(length) {
+        if (mode === "daily") {
+            return getDailyUniqueCode();
+        }
+
+        const arr = [];
+        while (arr.length < length) {
+            const num = Math.floor(Math.random() * 10);
+            if (!arr.includes(num)) {
+                arr.push(num);
+            }
+        }
+        return arr;
+    }
+
+    // 🔹 Maintenant, si mode = "daily", la combinaison sera fixe et identique pour tous
+    console.log("Combinaison générée :", combination.join(""));
+
+    // 🟢 Création des boutons de chiffres (0-9)
     for (let i = 0; i < 10; i++) {
         const button = document.createElement('button');
         button.textContent = i;
@@ -42,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tilesContainer.appendChild(button);
     }
 
-    // Create attempt inputs
+    // 🟢 Création des champs pour la tentative
     for (let i = 0; i < combinationLength; i++) {
         const input = document.createElement('input');
         input.type = 'text';
@@ -52,10 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
         attemptContainer.appendChild(input);
     }
 
-    // Pre-select the first input
     selectInput(selectedIndex);
 
-    // Initialize history with 10 empty attempts
+    // 🟢 Initialisation de l'historique des tentatives
     for (let i = 0; i < maxAttempts; i++) {
         const attemptElement = document.createElement('div');
         attemptElement.className = 'attempt';
@@ -95,17 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
     guessButton.addEventListener('click', makeGuess);
     backButton.addEventListener('click', () => window.location.href = 'index.html');
 
-    function generateCombination(length) {
-        const arr = [];
-        while (arr.length < length) {
-            const num = Math.floor(Math.random() * 10);
-            if (!arr.includes(num)) {
-                arr.push(num);
-            }
-        }
-        return arr;
-    }
-
     function selectInput(index) {
         selectedIndex = index;
         for (let i = 0; i < combinationLength; i++) {
@@ -119,7 +150,6 @@ document.addEventListener('DOMContentLoaded', () => {
             attemptContainer.children[selectedIndex].value = num;
             tilesContainer.children[num].disabled = true;
 
-            // Move to the next empty input or stay if all are filled
             let nextIndex = (selectedIndex + 1) % combinationLength;
             while (currentAttempt[nextIndex] !== null && nextIndex !== selectedIndex) {
                 nextIndex = (nextIndex + 1) % combinationLength;
@@ -128,7 +158,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function clearSelected() {
+    function makeGuess() {
+        if (!currentAttempt.includes(null)) {
+            attempts++;
+            const correctPositions = currentAttempt.filter((num, index) => num === combination[index]).length;
+            const wrongPositions = currentAttempt.filter(num => combination.includes(num)).length - correctPositions;
+
+            const attemptElements = historyContainer.getElementsByClassName('attempt');
+            const currentAttemptElement = attemptElements[attempts - 1];
+
+            const tilesElement = currentAttemptElement.getElementsByClassName('attempt-tiles')[0];
+            for (let i = 0; i < combinationLength; i++) {
+                const tile = tilesElement.children[i];
+                tile.textContent = currentAttempt[i];
+            }
+
+            const resultElement = currentAttemptElement.getElementsByClassName('result')[0];
+            resultElement.children[0].textContent = `Bien placés: ${correctPositions}`;
+            resultElement.children[1].textContent = `Mal placés: ${wrongPositions}`;
+
+            if (correctPositions === combinationLength) {
+                alert(`Félicitations ! Vous avez trouvé la combinaison en ${attempts} tentatives.`);
+                resetGame();
+            } else if (attempts === maxAttempts) {
+                alert(`Vous avez perdu ! La combinaison était ${combination.join('')}.`);
+                resetGame();
+            }
+
+            clearAll();
+        }
+    }
+
+    function resetGame() {
+        combination = generateCombination(combinationLength);
+        currentAttempt = Array(combinationLength).fill(null);
+        attempts = 0;
+        selectedIndex = 0;
+        selectInput(selectedIndex);
+    }
+	 function clearSelected() {
         if (currentAttempt[selectedIndex] !== null) {
             const num = currentAttempt[selectedIndex];
             currentAttempt[selectedIndex] = null;
@@ -136,82 +204,12 @@ document.addEventListener('DOMContentLoaded', () => {
             tilesContainer.children[num].disabled = false;
         }
     }
-
-    function clearAll() {
+	function clearAll() {
         for (let i = 0; i < combinationLength; i++) {
             selectedIndex = i;
             clearSelected();
         }
         selectedIndex = 0;
         selectInput(selectedIndex);
-    }
-
-    function makeGuess() {
-    if (!currentAttempt.includes(null)) {
-        attempts++;
-        const correctPositions = currentAttempt.filter((num, index) => num === combination[index]).length;
-        const wrongPositions = currentAttempt.filter(num => combination.includes(num)).length - correctPositions;
-
-        // Fill the history from the bottom up
-        const attemptElements = historyContainer.getElementsByClassName('attempt');
-        const currentAttemptElement = attemptElements[attempts - 1];
-
-        const tilesElement = currentAttemptElement.getElementsByClassName('attempt-tiles')[0];
-        for (let i = 0; i < combinationLength; i++) {
-            const tile = tilesElement.children[i];
-            tile.textContent = currentAttempt[i];
-
-            // Change color based on position and mode
-            if ((mode === '3easy' || mode === '4easy' || mode === '5easy') && currentAttempt[i] === combination[i]) {
-                tile.style.backgroundColor = '#7AA95C'; // Bien placé
-            } else if ((mode === '3easy' || mode === '4easy' || mode === '5easy') && combination.includes(currentAttempt[i])) {
-                tile.style.backgroundColor = '#FEEAA1'; // Mal placé
-            } else {
-                tile.style.backgroundColor = '#EBF2FA'; // Réinitialiser la couleur par défaut
-            }
-        }
-
-        const resultElement = currentAttemptElement.getElementsByClassName('result')[0];
-        resultElement.children[0].textContent = `Bien placés: ${correctPositions}`;
-        resultElement.children[1].textContent = `Mal placés: ${wrongPositions}`;
-
-        if (correctPositions === combinationLength) {
-            alert(`Félicitations ! Vous avez trouvé la combinaison en ${attempts} tentatives.`);
-            resetGame();
-        } else if (attempts === maxAttempts) {
-            alert(`Vous avez perdu ! La combinaison était ${combination.join('')}.`);
-            resetGame();
-        }
-
-        clearAll();
-    }
-}
-
-
-    function resetGame() {
-        combination = generateCombination(combinationLength);
-        currentAttempt = Array(combinationLength).fill(null);
-        attempts = 0;
-        selectedIndex = 0;
-        for (let button of tilesContainer.children) {
-            button.disabled = false;
-        }
-        for (let input of attemptContainer.children) {
-            input.value = '';
-            input.style.border = '2px solid #427AA1';
-        }
-        selectInput(selectedIndex);
-
-        // Clear history
-        const attemptElements = historyContainer.getElementsByClassName('attempt');
-        for (let attemptElement of attemptElements) {
-            const tilesElement = attemptElement.getElementsByClassName('attempt-tiles')[0];
-            for (let tile of tilesElement.children) {
-                tile.textContent = '';
-            }
-            const resultElement = attemptElement.getElementsByClassName('result')[0];
-            resultElement.children[0].textContent = '';
-            resultElement.children[1].textContent = '';
-        }
     }
 });
