@@ -275,3 +275,20 @@ function resetGame() {
         selectInput(selectedIndex);
     }
 });
+// 🕒 Timer pour le mode Daily
+function updateDailyTimer() {
+    const now = new Date();
+    const nextMidnight = new Date();
+    nextMidnight.setHours(24, 0, 0, 0); // Minuit prochain
+
+    const diff = nextMidnight - now;
+    const hours = String(Math.floor(diff / 3600000)).padStart(2, '0');
+    const minutes = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+    const seconds = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+
+    document.getElementById("daily-timer").textContent = `${hours}:${minutes}:${seconds}`;
+}
+
+// Mettre à jour le timer chaque seconde
+setInterval(updateDailyTimer, 1000);
+updateDailyTimer();

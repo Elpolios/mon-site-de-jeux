@@ -5,18 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mastermind</title>
     <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
     <div class="menu-container">
-        <h1>Mastermind</h1>
-        <div class="menu">
-            <button onclick="window.location.href='game.html?mode=daily'">Daily</button>
-            <button onclick="window.location.href='game.html?mode=3easy'">3 Facile</button>
-            <button onclick="window.location.href='game.html?mode=3hard'">3 Difficile</button>
-            <button onclick="window.location.href='game.html?mode=4easy'">4 Facile</button>
-            <button onclick="window.location.href='game.html?mode=4hard'">4 Difficile</button>
-            <button onclick="window.location.href='game.html?mode=5easy'">5 Facile</button>
-            <button onclick="window.location.href='game.html?mode=5hard'">5 Difficile</button>
+        <!-- Bouton Daily + Timer -->
+        <div class="daily-container">
+            <button class="daily-button" onclick="window.location.href='game.html?mode=daily'">Daily</button>
+            <p id="daily-timer">00:00:00</p>
+        </div>
+
+        <!-- Conteneur principal des modes -->
+        <div class="mode-container">
+            <!-- Colonne Facile -->
+            <div class="mode-column">
+                <h2>Facile</h2>
+                <button onclick="window.location.href='game.html?mode=3easy'">3 chiffres</button>
+                <button onclick="window.location.href='game.html?mode=4easy'">4 chiffres</button>
+                <button onclick="window.location.href='game.html?mode=5easy'">5 chiffres</button>
+            </div>
+
+            <!-- Colonne Difficile -->
+            <div class="mode-column">
+                <h2>Difficile</h2>
+                <button onclick="window.location.href='game.html?mode=3hard'">3 chiffres</button>
+                <button onclick="window.location.href='game.html?mode=4hard'">4 chiffres</button>
+                <button onclick="window.location.href='game.html?mode=5hard'">5 chiffres</button>
+            </div>
         </div>
     </div>
 </body>
