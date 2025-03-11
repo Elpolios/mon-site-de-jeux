@@ -198,3 +198,18 @@ body {
 .history .result .misplaced {
     margin: 2px 0;
 }
+#restart {
+    background-color: #F1895C;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px; /* Décale légèrement le bouton */
+    transition: background 0.3s ease;
+}
+
+#restart:hover {
+    background-color: #D6724A; /* Effet au survol */
+}
