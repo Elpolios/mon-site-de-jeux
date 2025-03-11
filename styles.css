@@ -214,13 +214,18 @@ body {
     background-color: #D6724A; /* Effet au survol */
 }
 
+
+
+
+
+
 /* 🌟 Global settings */
 body {
     font-family: 'Roboto', sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center; /* Centrer tous les éléments horizontalement */
+    align-items: center; 
     height: 100vh;
     margin: 0;
     background-color: #EBF2FA;
@@ -232,10 +237,10 @@ body {
 .menu-container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centrer le contenu horizontalement */
+    align-items: center;
     justify-content: center;
-    height: 100%; /* Prendre toute la hauteur de la page */
-    padding-top: 20px; /* Espacement en haut */
+    height: 100%; 
+    padding-top: 20px;
 }
 
 /* 🌟 Style du bouton Daily */
@@ -255,7 +260,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-bottom: 30px; /* Espacement entre le bouton Daily et les autres éléments */
+    margin-bottom: 30px;
 }
 
 .daily-button:hover {
@@ -274,10 +279,10 @@ body {
 /* 🌟 Conteneur des modes sous le bouton Daily */
 .mode-container {
     display: flex;
-    justify-content: space-between; /* Espace entre les colonnes */
+    justify-content: space-between;
     width: 100%;
     max-width: 900px;
-    gap: 50px; /* Ajout d'un écart entre les colonnes Facile et Difficile */
+    gap: 50px;
 }
 
 /* 🌟 Style des colonnes pour les modes */
@@ -293,21 +298,58 @@ body {
     margin-bottom: 10px;
 }
 
-.mode-column button {
-    background-color: #A4BD01;
-    color: #EBF2FA;
-    font-size: 16px;
-    padding: 10px 20px;
+/* 🌟 Style du bouton mode (pour facile et difficile) */
+.mode-button {
+    width: 300px;
+    height: 80px;
+    background-color: transparent;
     border-radius: 8px;
-    border: none;
-    margin: 10px 0;
+    border: 2px solid #06668C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s;
+    transition: background-color 0.3s, transform 0.2s;
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+    margin-bottom: 15px;
 }
 
-.mode-column button:hover {
-    background-color: #679436;
+.mode-button:hover {
     transform: scale(1.05);
+}
+
+/* 🌟 Style des cases à l'intérieur du bouton */
+.mode-button .case-row {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.mode-button .case {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #06668C;
+    font-size: 18px;
+    border: 2px solid #06668C;
+}
+
+.mode-button .yellow {
+    background-color: #FEEAA1; /* Jaune */
+}
+
+.mode-button .green {
+    background-color: #A4BD01; /* Vert */
+}
+
+.mode-button .empty {
+    background-color: transparent;
 }
 
 

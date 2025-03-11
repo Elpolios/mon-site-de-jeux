@@ -275,7 +275,7 @@ function resetGame() {
         selectInput(selectedIndex);
     }
 });
-// 🕒 Timer pour le mode Daily (intégré dans le bouton)
+// 🕒 Timer pour le mode Daily
 function updateDailyTimer() {
     const now = new Date();
     const nextMidnight = new Date();
@@ -292,4 +292,65 @@ function updateDailyTimer() {
 // Mettre à jour le timer chaque seconde
 setInterval(updateDailyTimer, 1000);
 updateDailyTimer();
+
+
+
+
+
+// Fonction pour démarrer un mode et générer les boutons avec les cases
+function startMode(buttonId, length, isHardMode = false) {
+    const buttonElement = document.getElementById(buttonId);
+    buttonElement.innerHTML = ''; 
+
+    const caseRow = document.createElement('div');
+    caseRow.classList.add('case-row');
+
+    for (let i = 0; i < length; i++) {
+        const caseElement = document.createElement('div');
+        caseElement.classList.add('case');
+
+        if (isHardMode) {
+            caseElement.classList.add('empty'); 
+        } else {
+            const randomColor = getRandomColor();
+            caseElement.classList.add(randomColor);
+        }
+
+        const randomNumber = Math.floor(Math.random() * 10);
+        caseElement.textContent = randomNumber;
+
+        caseRow.appendChild(caseElement);
+    }
+
+    buttonElement.appendChild(caseRow);
+	document.querySelector('.daily-button').addEventListener('click', function () {
+    window.location.href = 'game.html?mode=daily';
+});
+
+    // 🔹 Redirection vers game.html avec le bon mode
+    buttonElement.addEventListener('click', function () {
+        const mode = `${length}${isHardMode ? 'hard' : 'easy'}`;
+        window.location.href = `game.html?mode=${mode}`;
+    });
+}
+
+
+
+// Fonction pour générer une couleur aléatoire parmi les options
+function getRandomColor() {
+    const colors = ['yellow', 'green'];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+// Ajouter les modes facilement et difficilement lors du chargement de la page
+window.onload = () => {
+    // Générer les boutons pour les modes faciles et difficiles
+    startMode('easy-3', 3);  // 3 chiffres pour le mode facile
+    startMode('easy-4', 4);  // 4 chiffres pour le mode facile
+    startMode('easy-5', 5);  // 5 chiffres pour le mode facile
+
+    startMode('hard-3', 3, true);  // 3 chiffres pour le mode difficile (avec chiffres, mais vides visuellement)
+    startMode('hard-4', 4, true);  // 4 chiffres pour le mode difficile (avec chiffres, mais vides visuellement)
+    startMode('hard-5', 5, true);  // 5 chiffres pour le mode difficile (avec chiffres, mais vides visuellement)
+};
 

@@ -5,33 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mastermind</title>
     <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
 </head>
 <body>
-    <!-- Menu Conteneur -->
     <div class="menu-container">
-        <!-- Bouton Daily avec Timer intégré -->
-        <button class="daily-button" onclick="window.location.href='game.html?mode=daily'">
-            Daily <br>
-            <span id="daily-timer">00:00:00</span>
+        <!-- Bouton Daily avec timer -->
+        <button class="daily-button">
+            Daily
+            <div id="daily-timer">00:00</div>
         </button>
 
-        <!-- Conteneur principal des modes -->
+        <!-- Conteneur des modes -->
         <div class="mode-container">
-            <div class="mode-column">
+            <!-- Colonne Facile -->
+            <div class="mode-column" id="easy-mode">
                 <h2>Facile</h2>
-                <button onclick="window.location.href='game.html?mode=3easy'">3 chiffres</button>
-                <button onclick="window.location.href='game.html?mode=4easy'">4 chiffres</button>
-                <button onclick="window.location.href='game.html?mode=5easy'">5 chiffres</button>
+                <button id="easy-3" class="mode-button">3 Chiffres</button>
+                <button id="easy-4" class="mode-button">4 Chiffres</button>
+                <button id="easy-5" class="mode-button">5 Chiffres</button>
             </div>
 
-            <div class="mode-column">
+            <!-- Colonne Difficile -->
+            <div class="mode-column" id="hard-mode">
                 <h2>Difficile</h2>
-                <button onclick="window.location.href='game.html?mode=3hard'">3 chiffres</button>
-                <button onclick="window.location.href='game.html?mode=4hard'">4 chiffres</button>
-                <button onclick="window.location.href='game.html?mode=5hard'">5 chiffres</button>
+                <button id="hard-3" class="mode-button">3 Chiffres</button>
+                <button id="hard-4" class="mode-button">4 Chiffres</button>
+                <button id="hard-5" class="mode-button">5 Chiffres</button>
             </div>
         </div>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
