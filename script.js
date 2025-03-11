@@ -275,7 +275,7 @@ function resetGame() {
         selectInput(selectedIndex);
     }
 });
-// 🕒 Timer pour le mode Daily
+// 🕒 Timer pour le mode Daily (intégré dans le bouton)
 function updateDailyTimer() {
     const now = new Date();
     const nextMidnight = new Date();
@@ -292,3 +292,4 @@ function updateDailyTimer() {
 // Mettre à jour le timer chaque seconde
 setInterval(updateDailyTimer, 1000);
 updateDailyTimer();
+

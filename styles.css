@@ -214,47 +214,48 @@ body {
     background-color: #D6724A; /* Effet au survol */
 }
 
-/* 🌟 Style général */
+/* 🌟 Global settings */
 body {
     font-family: 'Roboto', sans-serif;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center; /* Centrer tous les éléments horizontalement */
     height: 100vh;
     margin: 0;
     background-color: #EBF2FA;
     color: #06668C;
+    overflow-y: auto;
 }
 
-/* 🌟 Conteneur principal */
+/* 🌟 Conteneur pour le bouton Daily */
 .menu-container {
-    text-align: center;
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 500px;
-}
-
-/* 🌟 Bouton Daily + Timer */
-.daily-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
+    align-items: center; /* Centrer le contenu horizontalement */
+    justify-content: center;
+    height: 100%; /* Prendre toute la hauteur de la page */
+    padding-top: 20px; /* Espacement en haut */
 }
 
+/* 🌟 Style du bouton Daily */
 .daily-button {
     background: #F1895C;
     border: none;
-    padding: 12px 20px;
+    padding: 15px 25px;
     font-size: 20px;
     color: white;
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s;
     font-weight: bold;
+    text-align: center;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px; /* Espacement entre le bouton Daily et les autres éléments */
 }
 
 .daily-button:hover {
@@ -262,51 +263,51 @@ body {
     transform: scale(1.05);
 }
 
+/* 🌟 Timer à l'intérieur du bouton */
 #daily-timer {
-    margin-top: 8px;
     font-size: 16px;
     font-weight: bold;
-    color: #06668C;
+    color: white;
+    margin-top: 5px;
 }
 
-/* 🌟 Conteneur des modes */
+/* 🌟 Conteneur des modes sous le bouton Daily */
 .mode-container {
     display: flex;
-    justify-content: space-between;
-    gap: 20px;
+    justify-content: space-between; /* Espace entre les colonnes */
+    width: 100%;
+    max-width: 900px;
+    gap: 50px; /* Ajout d'un écart entre les colonnes Facile et Difficile */
 }
 
-/* 🌟 Colonnes Facile et Difficile */
+/* 🌟 Style des colonnes pour les modes */
 .mode-column {
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 1;
 }
 
 .mode-column h2 {
-    font-size: 22px;
-    margin-bottom: 10px;
+    font-size: 24px;
     color: #06668C;
+    margin-bottom: 10px;
 }
 
-/* 🌟 Boutons des modes */
 .mode-column button {
-    background: #427AA1;
-    border: none;
+    background-color: #A4BD01;
+    color: #EBF2FA;
+    font-size: 16px;
     padding: 10px 20px;
-    font-size: 18px;
-    color: white;
     border-radius: 8px;
+    border: none;
+    margin: 10px 0;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s;
-    font-weight: bold;
-    width: 100%;
-    max-width: 160px;
-    margin-bottom: 10px;
 }
 
 .mode-column button:hover {
-    background: #06668C;
+    background-color: #679436;
     transform: scale(1.05);
 }
+
+
