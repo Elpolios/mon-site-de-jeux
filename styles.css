@@ -345,20 +345,47 @@ body {
 .mode-button .empty {
     background-color: transparent;
 }
-@media screen and (max-width: 768px) {
-    .tiles button {
-        width: 14vw;
-        height: 14vw;
-        font-size: 4vw;
-    }
-    .attempt input {
-        width: 14vw;
-        height: 14vw;
-        font-size: 4vw;
-    }
-    .controls button, .buttons button, .back-button {
+/* Styles pour tablettes */
+@media screen and (max-width: 1024px) {
+    .daily-button {
         font-size: 3vw;
+        width: 50%;
+    }
+    .mode-button {
+        font-size: 2vw;
+        padding: 2vh;
     }
 }
 
+/* Styles pour mobile */
+@media screen and (max-width: 768px) {
+    .daily-button {
+        font-size: 4vw;
+        width: 60%;
+    }
+    .mode-column h2 {
+        font-size: 4vw;
+    }
+    .mode-button {
+        font-size: 3vw;
+    }
+    .mode-button .case {
+        width: 12vw;
+        height: 12vw;
+    }
+}
 
+@media screen and (max-width: 600px) {
+    .daily-button {
+        font-size: 5vw;
+        width: 70%;
+    }
+    .mode-button {
+        font-size: 3.5vw;
+        padding: 3vh;
+    }
+    .mode-button .case {
+        width: 14vw;
+        height: 14vw;
+    }
+}
