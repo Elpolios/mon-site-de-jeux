@@ -1,38 +1,41 @@
 body {
     font-family: 'Roboto', sans-serif;
     display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Changer pour commencer en haut */
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     height: 100vh;
     margin: 0;
     background-color: #EBF2FA;
     color: #06668C;
-    overflow-y: auto; /* Activer le défilement vertical */
+    overflow-y: auto;
 }
 
 .game-container {
     text-align: center;
-    width: 100%;
+    width: 90%;
     max-width: 600px;
-    padding: 20px;
+    padding: 2vh;
     background-color: #EBF2FA;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    overflow-y: auto; /* Activer le défilement vertical si nécessaire */
-    max-height: 90vh; /* Limiter la hauteur pour permettre le défilement */
+    overflow-y: auto;
+    max-height: 90vh;
 }
 
 .tiles {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 2vw;
+    margin-bottom: 2vh;
 }
 
 .tiles button {
-    width: 60px;
-    height: 60px;
-    font-size: 24px;
+    width: 12vw;
+    height: 12vw;
+    max-width: 60px;
+    max-height: 60px;
+    font-size: 2vw;
     background-color: #A4BD01;
     border: none;
     border-radius: 8px;
@@ -55,13 +58,13 @@ body {
 .controls {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 2vw;
+    margin-bottom: 2vh;
 }
 
 .controls button {
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 1vh 2vw;
+    font-size: 1.5vw;
     background-color: #427AA1;
     color: #EBF2FA;
     border: none;
@@ -71,29 +74,25 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.controls button:hover {
-    background-color: #06668C;
-    transform: scale(1.05);
-}
-
 .attempt {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 2vw;
+    margin-bottom: 2vh;
 }
 
 .attempt input {
-    width: 60px;
-    height: 60px;
-    font-size: 24px;
+    width: 12vw;
+    height: 12vw;
+    max-width: 60px;
+    max-height: 60px;
+    font-size: 2vw;
     text-align: center;
     border: 2px solid #427AA1;
     border-radius: 8px;
     background-color: #EBF2FA;
     color: #06668C;
 }
-
 .attempt input:focus {
     border-color: #A4BD01;
 }
@@ -101,7 +100,7 @@ body {
 .buttons {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 2vh;
 }
 
 .buttons button {
@@ -123,10 +122,10 @@ body {
 
 .back-button {
     position: fixed;
-    bottom: 20px;
-    left: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
+    bottom: 2vh;
+    left: 2vw;
+    padding: 1vh 2vw;
+    font-size: 1.5vw;
     background-color: #427AA1;
     color: #EBF2FA;
     border: none;
@@ -134,7 +133,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Assure que le bouton reste au-dessus */
+    z-index: 1000;
 }
 
 .back-button:hover {
@@ -350,6 +349,21 @@ body {
 
 .mode-button .empty {
     background-color: transparent;
+}
+@media screen and (max-width: 768px) {
+    .tiles button {
+        width: 14vw;
+        height: 14vw;
+        font-size: 4vw;
+    }
+    .attempt input {
+        width: 14vw;
+        height: 14vw;
+        font-size: 4vw;
+    }
+    .controls button, .buttons button, .back-button {
+        font-size: 3vw;
+    }
 }
 
 
