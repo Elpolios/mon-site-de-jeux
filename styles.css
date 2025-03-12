@@ -238,28 +238,26 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%; 
-    padding-top: 20px;
+    height: 100%;
+    padding-top: 5vh;
+    width: 90%;
+    max-width: 900px;
 }
 
-/* 🌟 Style du bouton Daily */
 .daily-button {
     background: #F1895C;
     border: none;
-    padding: 15px 25px;
-    font-size: 20px;
+    padding: 2vh 5vw;
+    font-size: 2.5vw;
     color: white;
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s;
     font-weight: bold;
     text-align: center;
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 30px;
+    width: 50%;
+    max-width: 200px;
+    margin-bottom: 5vh;
 }
 
 .daily-button:hover {
@@ -267,41 +265,37 @@ body {
     transform: scale(1.05);
 }
 
-/* 🌟 Timer à l'intérieur du bouton */
 #daily-timer {
-    font-size: 16px;
+    font-size: 1.5vw;
     font-weight: bold;
     color: white;
-    margin-top: 5px;
+    margin-top: 1vh;
 }
 
-/* 🌟 Conteneur des modes sous le bouton Daily */
 .mode-container {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    width: 90%;
     max-width: 900px;
-    gap: 50px;
+    gap: 5vw;
 }
 
-/* 🌟 Style des colonnes pour les modes */
 .mode-column {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 45%;
 }
 
 .mode-column h2 {
-    font-size: 24px;
+    font-size: 2.5vw;
     color: #06668C;
-    margin-bottom: 10px;
+    margin-bottom: 2vh;
 }
 
-/* 🌟 Style du bouton mode (pour facile et difficile) */
 .mode-button {
-    width: 300px;
-    height: 80px;
-    background-color: transparent;
+    width: 90%;
+    padding: 2vh;
     border-radius: 8px;
     border: 2px solid #06668C;
     display: flex;
@@ -310,10 +304,9 @@ body {
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
-    font-size: 18px;
+    font-size: 2vw;
     font-weight: bold;
-    position: relative;
-    margin-bottom: 15px;
+    margin-bottom: 2vh;
 }
 
 .mode-button:hover {
@@ -328,23 +321,25 @@ body {
 }
 
 .mode-button .case {
-    width: 40px;
-    height: 40px;
+    width: 10vw;
+    height: 10vw;
+    max-width: 40px;
+    max-height: 40px;
     border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #06668C;
-    font-size: 18px;
+    font-size: 1.5vw;
     border: 2px solid #06668C;
 }
 
 .mode-button .yellow {
-    background-color: #FEEAA1; /* Jaune */
+    background-color: #FEEAA1;
 }
 
 .mode-button .green {
-    background-color: #A4BD01; /* Vert */
+    background-color: #A4BD01;
 }
 
 .mode-button .empty {
