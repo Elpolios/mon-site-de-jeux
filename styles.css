@@ -1,41 +1,40 @@
 body {
     font-family: 'Roboto', sans-serif;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    justify-content: center;
+    align-items: flex-start;
     height: 100vh;
     margin: 0;
     background-color: #EBF2FA;
     color: #06668C;
     overflow-y: auto;
+    overflow-x: auto; /* Activer le défilement horizontal */
 }
 
 .game-container {
     text-align: center;
-    width: 90%;
+    width: 100%;
     max-width: 600px;
-    padding: 2vh;
+    padding: 20px;
     background-color: #EBF2FA;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
     max-height: 90vh;
+    margin: 0 auto; /* Centrer le conteneur */
 }
 
 .tiles {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 2vw;
-    margin-bottom: 2vh;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 .tiles button {
-    width: 12vw;
-    height: 12vw;
-    max-width: 60px;
-    max-height: 60px;
-    font-size: 2vw;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
     background-color: #A4BD01;
     border: none;
     border-radius: 8px;
@@ -58,13 +57,13 @@ body {
 .controls {
     display: flex;
     justify-content: center;
-    gap: 2vw;
-    margin-bottom: 2vh;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 .controls button {
-    padding: 1vh 2vw;
-    font-size: 1.5vw;
+    padding: 10px 20px;
+    font-size: 16px;
     background-color: #427AA1;
     color: #EBF2FA;
     border: none;
@@ -74,25 +73,29 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.controls button:hover {
+    background-color: #06668C;
+    transform: scale(1.05);
+}
+
 .attempt {
     display: flex;
     justify-content: center;
-    gap: 2vw;
-    margin-bottom: 2vh;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 .attempt input {
-    width: 12vw;
-    height: 12vw;
-    max-width: 60px;
-    max-height: 60px;
-    font-size: 2vw;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
     text-align: center;
     border: 2px solid #427AA1;
     border-radius: 8px;
     background-color: #EBF2FA;
     color: #06668C;
 }
+
 .attempt input:focus {
     border-color: #A4BD01;
 }
@@ -100,7 +103,7 @@ body {
 .buttons {
     display: flex;
     justify-content: center;
-    margin-bottom: 2vh;
+    margin-bottom: 20px;
 }
 
 .buttons button {
@@ -122,10 +125,10 @@ body {
 
 .back-button {
     position: fixed;
-    bottom: 2vh;
-    left: 2vw;
-    padding: 1vh 2vw;
-    font-size: 1.5vw;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
     background-color: #427AA1;
     color: #EBF2FA;
     border: none;
@@ -133,7 +136,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    z-index: 1000; /* Assure que le bouton reste au-dessus */
 }
 
 .back-button:hover {
@@ -197,6 +200,7 @@ body {
 .history .result .misplaced {
     margin: 2px 0;
 }
+
 #restart {
     background-color: #F1895C;
     color: white;
@@ -213,18 +217,13 @@ body {
     background-color: #D6724A; /* Effet au survol */
 }
 
-
-
-
-
-
 /* 🌟 Global settings */
 body {
     font-family: 'Roboto', sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center; 
+    align-items: center;
     height: 100vh;
     margin: 0;
     background-color: #EBF2FA;
@@ -239,25 +238,27 @@ body {
     align-items: center;
     justify-content: center;
     height: 100%;
-    padding-top: 5vh;
-    width: 90%;
-    max-width: 900px;
+    padding-top: 20px;
 }
 
+/* 🌟 Style du bouton Daily */
 .daily-button {
     background: #F1895C;
     border: none;
-    padding: 2vh 5vw;
-    font-size: 2.5vw;
+    padding: 15px 25px;
+    font-size: 20px;
     color: white;
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s;
     font-weight: bold;
     text-align: center;
-    width: 50%;
-    max-width: 200px;
-    margin-bottom: 5vh;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
 }
 
 .daily-button:hover {
@@ -265,37 +266,41 @@ body {
     transform: scale(1.05);
 }
 
+/* 🌟 Timer à l'intérieur du bouton */
 #daily-timer {
-    font-size: 1.5vw;
+    font-size: 16px;
     font-weight: bold;
     color: white;
-    margin-top: 1vh;
+    margin-top: 5px;
 }
 
+/* 🌟 Conteneur des modes sous le bouton Daily */
 .mode-container {
     display: flex;
     justify-content: space-between;
-    width: 90%;
+    width: 100%;
     max-width: 900px;
-    gap: 5vw;
+    gap: 50px;
 }
 
+/* 🌟 Style des colonnes pour les modes */
 .mode-column {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 45%;
 }
 
 .mode-column h2 {
-    font-size: 2.5vw;
+    font-size: 24px;
     color: #06668C;
-    margin-bottom: 2vh;
+    margin-bottom: 10px;
 }
 
+/* 🌟 Style du bouton mode (pour facile et difficile) */
 .mode-button {
-    width: 90%;
-    padding: 2vh;
+    width: 300px;
+    height: 80px;
+    background-color: transparent;
     border-radius: 8px;
     border: 2px solid #06668C;
     display: flex;
@@ -304,9 +309,10 @@ body {
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
-    font-size: 2vw;
+    font-size: 18px;
     font-weight: bold;
-    margin-bottom: 2vh;
+    position: relative;
+    margin-bottom: 15px;
 }
 
 .mode-button:hover {
@@ -321,71 +327,41 @@ body {
 }
 
 .mode-button .case {
-    width: 10vw;
-    height: 10vw;
-    max-width: 40px;
-    max-height: 40px;
+    width: 40px;
+    height: 40px;
     border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #06668C;
-    font-size: 1.5vw;
+    font-size: 18px;
     border: 2px solid #06668C;
 }
 
 .mode-button .yellow {
-    background-color: #FEEAA1;
+    background-color: #FEEAA1; /* Jaune */
 }
 
 .mode-button .green {
-    background-color: #A4BD01;
+    background-color: #A4BD01; /* Vert */
 }
 
 .mode-button .empty {
     background-color: transparent;
 }
-/* Styles pour tablettes */
-@media screen and (max-width: 1024px) {
-    .daily-button {
-        font-size: 3vw;
-        width: 50%;
-    }
-    .mode-button {
-        font-size: 2vw;
-        padding: 2vh;
-    }
-}
 
-/* Styles pour mobile */
-@media screen and (max-width: 768px) {
-    .daily-button {
-        font-size: 4vw;
-        width: 60%;
+/* Media query pour les petits écrans */
+@media (max-width: 700px) {
+    .mode-container {
+        flex-direction: column;
+        align-items: center;
     }
-    .mode-column h2 {
-        font-size: 4vw;
-    }
-    .mode-button {
-        font-size: 3vw;
-    }
-    .mode-button .case {
-        width: 12vw;
-        height: 12vw;
-    }
-}
 
-@media screen and (max-width: 600px) {
-    .daily-button {
-        font-size: 5vw;
-        width: 70%;
+    .mode-column {
+        width: 100%;
     }
+
     .mode-button {
-        font-size: 3.5vw;
-        padding: 3vh;
-    }
-    .mode-button .case {
-        width: 14vw;
-        height: 14vw;
+        width: 100%;
     }
 }
