@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
 body {
-    font-family: 'VT323', monospace;
+    font-family: 'Roboto', sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -223,7 +223,7 @@ body {
 
 /* 🌟 Global settings */
 body {
-    font-family: 'VT323', monospace;
+    font-family: 'Roboto', sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -368,12 +368,16 @@ body {
     .mode-button {
         width: 100%;
     }
+
+    .title {
+        margin-top: 40px; /* Ajuster la marge pour les petits écrans */
+    }
 }
 
 /* Style pour le titre */
 .title {
     font-family: 'VT323', monospace;
-    font-size: 55px;
+    font-size: 36px;
     color: #06668C;
     margin-bottom: 20px;
 }
