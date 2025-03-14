@@ -1,8 +1,12 @@
+/* Importer la police VT323 depuis Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'VT323', monospace;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     height: 100vh;
     margin: 0;
     background-color: #EBF2FA;
@@ -219,7 +223,7 @@ body {
 
 /* 🌟 Global settings */
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'VT323', monospace;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -364,4 +368,12 @@ body {
     .mode-button {
         width: 100%;
     }
+}
+
+/* Style pour le titre */
+.title {
+    font-family: 'VT323', monospace;
+    font-size: 55px;
+    color: #06668C;
+    margin-bottom: 20px;
 }
